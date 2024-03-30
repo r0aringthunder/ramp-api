@@ -5,6 +5,9 @@ namespace R0aringthunder\RampApi;
 use FilesystemIterator;
 use SplFileInfo;
 
+/**
+ * Class Ramp serves as the main entry point to interact with Ramp API, managing authentication and service requests.
+ */
 class Ramp
 {
     protected $baseUrl;
@@ -13,12 +16,20 @@ class Ramp
     protected $accessToken;
     private $services = [];
 
+    /**
+     * Constructs the Ramp instance, initializing configurations and registering available services.
+     */
     public function __construct()
     {
         $this->initialize();
         $this->registerAvailableServices();
     }
 
+    /**
+     * Initializes client credentials and base URL for API requests.
+     * 
+     * Retrieves client credentials and the base URL configuration, then obtains an initial access token.
+     */
     protected function initialize()
     {
         $this->clientId = config('ramp.client_id');
@@ -28,7 +39,11 @@ class Ramp
     }
 
     /**
-     * Obtain an access token using the Client Credentials grant.
+     * Obtains an access token using the Client Credentials grant.
+     *
+     * This method authenticates with the Ramp API using client credentials to obtain an access token.
+     * 
+     * @return array The response from the token endpoint, including the access token.
      */
     public function obtainAccessTokenWithClientCredentials()
     {
@@ -52,13 +67,16 @@ class Ramp
 
     /**
      * Sends a request to the Ramp API.
+     * 
+     * This method constructs and sends an HTTP request to the Ramp API, handling authorization and content encoding.
      *
-     * @param string $method HTTP method
-     * @param string $endpoint API endpoint
-     * @param array $headers Additional headers
-     * @param mixed $data Data to be sent with the request
-     * @param bool $addAuthHeader Whether to add the Authorization header with the Bearer token
-     * @return mixed The JSON-decoded response
+     * @param string $method The HTTP method to use for the request.
+     * @param string $endpoint The API endpoint to request.
+     * @param array $headers Additional HTTP headers to include in the request.
+     * @param mixed $data The data to be sent with the request.
+     * @param bool $addAuthHeader Indicates whether to add an Authorization header with a Bearer token.
+     * @return mixed The JSON-decoded response from the API.
+     * @throws Exception If a cURL error occurs during the request.
      */
     public function sendRequest($method, $endpoint, $headers = [], $data = null, $addAuthHeader = true)
     {
@@ -100,6 +118,14 @@ class Ramp
         return json_decode($response, true);
     }
 
+    /**
+     * Magic getter to lazy-load service instances.
+     * 
+     * If the requested service is not initialized, it will initialize it on the first access.
+     *
+     * @param string $name The name of the service to get.
+     * @return mixed|null The service instance or null if it doesn't exist.
+     */
     public function __get($name)
     {
         if (isset($this->services[$name]) && is_string($this->services[$name])) {
@@ -109,6 +135,11 @@ class Ramp
         return $this->services[$name] ?? null;
     }
 
+    /**
+     * Registers all available services by discovering them in the Services directory.
+     * 
+     * This method scans the Services directory and registers all found services.
+     */
     private function registerAvailableServices()
     {
         $serviceMap = $this->discoverServices();
@@ -117,6 +148,13 @@ class Ramp
         }
     }
 
+    /**
+     * Discovers service classes in the Services directory and maps their filenames to class names.
+     * 
+     * This method scans the Services directory for PHP files and constructs a map of service names to their fully qualified class names.
+     *
+     * @return array The map of service names to their fully qualified class names.
+     */
     protected function discoverServices()
     {
         $directory = __DIR__ . '/Services';
