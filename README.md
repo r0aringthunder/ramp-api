@@ -1,4 +1,5 @@
-# [Ramp API for PHP](https://docs.ramp.com) [![Latest Version on Packagist][ico-version]][link-packagist] [![Software License][ico-license]](LICENSE.md)
+# [Ramp API for PHP](https://docs.ramp.com) [![Software License][ico-license]](LICENSE.md) ![GitHub last commit][ico-last-commit]
+
 
 ## Available services
  - [Accounting](https://docs.ramp.com/developer-api/v1/reference/rest/accounting)
@@ -27,7 +28,7 @@
  - [Vendors](https://docs.ramp.com/developer-api/v1/reference/rest/vendors)
 
 ## Examples
-#Fetching a list of users
+# Fetching a list of users
 ```php
 use R0aringthunder\RampApi\Ramp;
 
@@ -61,7 +62,5 @@ public function fetchCard()
 
 ***More exmaples coming***
 
-[ico-version]: https://img.shields.io/packagist/v/r0aringthunder/ramp-api.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[link-packagist]: https://packagist.org/packages/r0aringthunder/ramp-api
-[link-author]: https://github.com/r0aringthunder
+[ico-last-commit]: https://img.shields.io/github/last-commit/r0aringthunder/ramp-api?style=flat-square
