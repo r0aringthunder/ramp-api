@@ -35,7 +35,7 @@ class Ramp
         $this->clientId = config('ramp.client_id');
         $this->clientSecret = config('ramp.client_secret');
         $this->baseUrl = config('ramp.prod_ready') ? 'https://api.ramp.com/developer/v1/' : 'https://demo-api.ramp.com/developer/v1/';
-        $this->obtainAccessTokenWithClientCredentials();
+        $this->obtainAccessToken();
     }
 
     /**
@@ -45,7 +45,7 @@ class Ramp
      * 
      * @return array The response from the token endpoint, including the access token.
      */
-    public function obtainAccessTokenWithClientCredentials()
+    public function obtainAccessToken()
     {
         $this->clientId = config('ramp.client_id');
         $this->clientSecret = config('ramp.client_secret');
