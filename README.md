@@ -42,6 +42,8 @@ public function rampUsers()
 
 ### Fetching all cards
 ```php
+use R0aringthunder\RampApi\Ramp;
+
 public function fetchCards()
 {
     $ramp = new Ramp();
@@ -52,6 +54,8 @@ public function fetchCards()
 
 ### Fetching a single card
 ```php
+use R0aringthunder\RampApi\Ramp;
+
 public function fetchCard()
 {
   $ramp = new Ramp();
