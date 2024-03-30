@@ -1,0 +1,26 @@
+{
+    "name": "r0aringthunder/ramp-api",
+    "description": "A package geared towards laravel to talk to the ramp.com API.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "R0aringthunder\\RampApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "r0aringthunder",
+            "email": "williamd.mercer7@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "R0aringthunder\\RampApi\\RampServiceProvider"
+            ]
+        }
+    }    
+}
