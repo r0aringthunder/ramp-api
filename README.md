@@ -2,33 +2,50 @@
 
 
 ## Available services
- - [Accounting](https://docs.ramp.com/developer-api/v1/reference/rest/accounting)
- - [Accounting Connections](https://docs.ramp.com/developer-api/v1/reference/rest/accounting-connections)
- - [Bills](https://docs.ramp.com/developer-api/v1/reference/rest/bills)
- - [Business](https://docs.ramp.com/developer-api/v1/reference/rest/business)
+ - [Accounting](https://docs.ramp.com/developer-api/v1/reference/rest/accounting) `Ex: $ramp->accounting->...`
+ - [Accounting Connections](https://docs.ramp.com/developer-api/v1/reference/rest/accounting-connections) `Ex: $ramp->accountingconnections->...`
+ - [Bills](https://docs.ramp.com/developer-api/v1/reference/rest/bills) `Ex: $ramp->bills->...`
+ - [Business](https://docs.ramp.com/developer-api/v1/reference/rest/business) `Ex: $ramp->business->...`
  - **Card Programs - This is not implemented and instead you should use [Spend Programs](https://docs.ramp.com/developer-api/v1/reference/rest/spend-programs)**
- - [Cards](https://docs.ramp.com/developer-api/v1/reference/rest/cards)
- - [Cash Backs](https://docs.ramp.com/developer-api/v1/reference/rest/cashbacks)
- - [Departments](https://docs.ramp.com/developer-api/v1/reference/rest/departments)
- - [Entities](https://docs.ramp.com/developer-api/v1/reference/rest/entities)
- - [Leads](https://docs.ramp.com/developer-api/v1/reference/rest/leads)
- - [Ledger Accounts](https://docs.ramp.com/developer-api/v1/reference/rest/ledger-accounts)
- - [Limits](https://docs.ramp.com/developer-api/v1/reference/rest/ledger-accounts)
- - [Locations](https://docs.ramp.com/developer-api/v1/reference/rest/locations)
- - [Memos](https://docs.ramp.com/developer-api/v1/reference/rest/locations)
- - [Merchants](https://docs.ramp.com/developer-api/v1/reference/rest/merchants)
- - [Receipt Integrations](https://docs.ramp.com/developer-api/v1/reference/rest/receipt-integrations)
- - [Receipts](https://docs.ramp.com/developer-api/v1/reference/rest/receipts)
- - [Reimbursements](https://docs.ramp.com/developer-api/v1/reference/rest/reimbursements)
- - [Spend Programs](https://docs.ramp.com/developer-api/v1/reference/rest/spend-programs)
- - [Statements](https://docs.ramp.com/developer-api/v1/reference/rest/statements)
- - [Transactions](https://docs.ramp.com/developer-api/v1/reference/rest/transactions)
- - [Transfers](https://docs.ramp.com/developer-api/v1/reference/rest/transfers)
- - [Users](https://docs.ramp.com/developer-api/v1/reference/rest/users)
- - [Vendors](https://docs.ramp.com/developer-api/v1/reference/rest/vendors)
+ - [Cards](https://docs.ramp.com/developer-api/v1/reference/rest/cards) `Ex: $ramp->cards->...`
+ - [Cash Backs](https://docs.ramp.com/developer-api/v1/reference/rest/cashbacks) `Ex: $ramp->cashbacks->...`
+ - [Departments](https://docs.ramp.com/developer-api/v1/reference/rest/departments) `Ex: $ramp->departments->...`
+ - [Entities](https://docs.ramp.com/developer-api/v1/reference/rest/entities) `Ex: $ramp->entities->...`
+ - [Leads](https://docs.ramp.com/developer-api/v1/reference/rest/leads) `Ex: $ramp->leads->...`
+ - [Ledger Accounts](https://docs.ramp.com/developer-api/v1/reference/rest/ledger-accounts) `Ex: $ramp->ledgeraccounts->...`
+ - [Limits](https://docs.ramp.com/developer-api/v1/reference/rest/ledger-accounts) `Ex: $ramp->limits->...`
+ - [Locations](https://docs.ramp.com/developer-api/v1/reference/rest/locations) `Ex: $ramp->locations->...`
+ - [Memos](https://docs.ramp.com/developer-api/v1/reference/rest/locations) `Ex: $ramp->memos->...`
+ - [Merchants](https://docs.ramp.com/developer-api/v1/reference/rest/merchants) `Ex: $ramp->merchants->...`
+ - [Receipt Integrations](https://docs.ramp.com/developer-api/v1/reference/rest/receipt-integrations) `Ex: $ramp->receiptintegrations->...`
+ - [Receipts](https://docs.ramp.com/developer-api/v1/reference/rest/receipts) `Ex: $ramp->receipts->...`
+ - [Reimbursements](https://docs.ramp.com/developer-api/v1/reference/rest/reimbursements) `Ex: $ramp->reimbursements->...`
+ - [Spend Programs](https://docs.ramp.com/developer-api/v1/reference/rest/spend-programs) `Ex: $ramp->spendprograms->...`
+ - [Statements](https://docs.ramp.com/developer-api/v1/reference/rest/statements) `Ex: $ramp->statements->...`
+ - [Transactions](https://docs.ramp.com/developer-api/v1/reference/rest/transactions) `Ex: $ramp->transactions->...`
+ - [Transfers](https://docs.ramp.com/developer-api/v1/reference/rest/transfers) `Ex: $ramp->transfers->...`
+ - [Users](https://docs.ramp.com/developer-api/v1/reference/rest/users) `Ex: $ramp->users->...`
+ - [Vendors](https://docs.ramp.com/developer-api/v1/reference/rest/vendors) `Ex: $ramp->vendors->...`
+
+## Publishing the ramp config
+#### Command
+```bash
+php artisan vendor:publish --tag=rampapi-config
+```
+#### published `config/ramp.php`
+```php
+<?php
+
+return [
+    'client_id' => env('RAMP_CLIENT_ID', 'your_client_id'),
+    'client_secret' => env('RAMP_CLIENT_SECRET', 'your_client_secret'),
+    'prod_ready' => env('PROD_READY', false),
+    'scopes' => env('RAMP_SCOPES', 'accounting:read accounting:write bills:read business:read cards:read cards:write cashbacks:read departments:read departments:write entities:read leads:read leads:write limits:read limits:write locations:read locations:write memos:read merchants:read receipt_integrations:read receipt_integrations:write receipts:read reimbursements:read spend_programs:read spend_programs:write statements:read transactions:read transfers:read users:read users:write'),
+];
+```
 
 ## Examples
-### Fetching a list of users
+#### Fetching a list of users
 ```php
 use R0aringthunder\RampApi\Ramp;
 
@@ -40,7 +57,7 @@ public function rampUsers()
 }
 ```
 
-### Fetching all cards
+#### Fetching all cards
 ```php
 use R0aringthunder\RampApi\Ramp;
 
@@ -52,7 +69,7 @@ public function fetchCards()
 }
 ```
 
-### Fetching a single card
+#### Fetching a single card
 ```php
 use R0aringthunder\RampApi\Ramp;
 
