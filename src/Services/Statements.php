@@ -16,7 +16,7 @@ class Statements
     /**
      * List statements with optional filters.
      */
-    public function listStatements($filters = [])
+    public function list($filters = [])
     {
         $queryParams = http_build_query($filters);
         return $this->ramp->sendRequest('GET', "statements?$queryParams");
@@ -25,7 +25,7 @@ class Statements
     /**
      * Fetch a specific statement by its ID.
      */
-    public function fetchStatement($statementId)
+    public function fetch($statementId)
     {
         return $this->ramp->sendRequest('GET', "statements/$statementId");
     }

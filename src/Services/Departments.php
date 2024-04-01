@@ -16,7 +16,7 @@ class Departments
     /**
      * List departments with optional pagination.
      */
-    public function listDepartments($start = null, $pageSize = null)
+    public function list($start = null, $pageSize = null)
     {
         $queryParams = http_build_query(compact('start', 'pageSize'));
         return $this->ramp->sendRequest('GET', "departments?$queryParams");
@@ -25,7 +25,7 @@ class Departments
     /**
      * Create a new department.
      */
-    public function createDepartment($name)
+    public function create($name)
     {
         $data = ['name' => $name];
         return $this->ramp->sendRequest('POST', 'departments', $data);
@@ -34,7 +34,7 @@ class Departments
     /**
      * Fetch a specific department by its ID.
      */
-    public function fetchDepartment($departmentId)
+    public function fetch($departmentId)
     {
         return $this->ramp->sendRequest('GET', "departments/$departmentId");
     }
@@ -42,7 +42,7 @@ class Departments
     /**
      * Update a department.
      */
-    public function updateDepartment($departmentId, $name)
+    public function update($departmentId, $name)
     {
         $data = ['id' => $departmentId, 'name' => $name];
         return $this->ramp->sendRequest('PATCH', "departments/$departmentId", $data);

@@ -16,7 +16,7 @@ class Merchants
     /**
      * List merchants with optional filters.
      */
-    public function listMerchants($filters = [])
+    public function list($filters = [])
     {
         $queryParams = http_build_query($filters);
         return $this->ramp->sendRequest('GET', "merchants?$queryParams");

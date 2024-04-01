@@ -16,7 +16,7 @@ class Users
     /**
      * List users with optional filters.
      */
-    public function listUsers($filters = [])
+    public function list($filters = [])
     {
         $queryParams = http_build_query($filters);
         return $this->ramp->sendRequest('GET', "users?$queryParams");
@@ -25,7 +25,7 @@ class Users
     /**
      * Create a user invite.
      */
-    public function createUserInvite($userData)
+    public function createInvite($userData)
     {
         return $this->ramp->sendRequest('POST', 'users/deferred', $userData);
     }
@@ -41,7 +41,7 @@ class Users
     /**
      * Fetch a specific user by their ID.
      */
-    public function fetchUser($userId)
+    public function fetch($userId)
     {
         return $this->ramp->sendRequest('GET', "users/$userId");
     }
@@ -49,7 +49,7 @@ class Users
     /**
      * Update a specific user by their ID.
      */
-    public function updateUser($userId, $userData)
+    public function update($userId, $userData)
     {
         return $this->ramp->sendRequest('PATCH', "users/$userId", $userData);
     }
@@ -57,7 +57,7 @@ class Users
     /**
      * Delete a specific user by their ID.
      */
-    public function deleteUser($userId)
+    public function delete($userId)
     {
         return $this->ramp->sendRequest('DELETE', "users/$userId");
     }

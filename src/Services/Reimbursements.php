@@ -16,7 +16,7 @@ class Reimbursements
     /**
      * List reimbursements with optional filters.
      */
-    public function listReimbursements($filters = [])
+    public function list($filters = [])
     {
         $queryParams = http_build_query($filters);
         return $this->ramp->sendRequest('GET', "reimbursements?$queryParams");
@@ -25,7 +25,7 @@ class Reimbursements
     /**
      * Fetch a specific reimbursement by its ID.
      */
-    public function fetchReimbursement($reimbursementId)
+    public function fetch($reimbursementId)
     {
         return $this->ramp->sendRequest('GET', "reimbursements/$reimbursementId");
     }

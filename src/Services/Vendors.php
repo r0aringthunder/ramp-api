@@ -16,7 +16,7 @@ class Vendors
     /**
      * List vendors with optional filters.
      */
-    public function listVendors($filters = [])
+    public function list($filters = [])
     {
         $queryParams = http_build_query($filters);
         return $this->ramp->sendRequest('GET', "accounting/vendors?$queryParams");
@@ -25,7 +25,7 @@ class Vendors
     /**
      * Upload vendors.
      */
-    public function uploadVendors($vendors)
+    public function upload($vendors)
     {
         return $this->ramp->sendRequest('POST', 'accounting/vendors', ['vendors' => $vendors]);
     }
@@ -33,7 +33,7 @@ class Vendors
     /**
      * Fetch a specific vendor by their ID.
      */
-    public function fetchVendor($vendorId)
+    public function fetch($vendorId)
     {
         return $this->ramp->sendRequest('GET', "accounting/vendors/$vendorId");
     }
@@ -41,7 +41,7 @@ class Vendors
     /**
      * Update a specific vendor by their ID.
      */
-    public function updateVendor($vendorId, $vendorData)
+    public function update($vendorId, $vendorData)
     {
         return $this->ramp->sendRequest('PATCH', "accounting/vendors/$vendorId", $vendorData);
     }
@@ -49,7 +49,7 @@ class Vendors
     /**
      * Delete a specific vendor by their ID.
      */
-    public function deleteVendor($vendorId)
+    public function delete($vendorId)
     {
         return $this->ramp->sendRequest('DELETE', "accounting/vendors/$vendorId");
     }

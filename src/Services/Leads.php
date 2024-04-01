@@ -16,7 +16,7 @@ class Leads
     /**
      * Create a sales lead.
      */
-    public function createLead($leadData)
+    public function create($leadData)
     {
         return $this->ramp->sendRequest('POST', 'leads', $leadData);
     }
@@ -24,7 +24,7 @@ class Leads
     /**
      * Fetch a specific sales lead by its ID.
      */
-    public function fetchLead($salesLeadId)
+    public function fetch($salesLeadId)
     {
         return $this->ramp->sendRequest('GET', "leads/$salesLeadId");
     }
@@ -32,7 +32,7 @@ class Leads
     /**
      * Upload documents required by the financing application process (Deprecated).
      */
-    public function uploadDocument($salesLeadId, $documentData)
+    public function upload($salesLeadId, $documentData)
     {
         // Note: This operation is marked as deprecated in the API documentation.
         return $this->ramp->sendRequest('POST', "leads/$salesLeadId/upload_document", $documentData);
