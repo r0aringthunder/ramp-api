@@ -16,7 +16,7 @@ class SpendPrograms
     /**
      * List spend programs with optional filters.
      */
-    public function listSpendPrograms($filters = [])
+    public function list($filters = [])
     {
         $queryParams = http_build_query($filters);
         return $this->ramp->sendRequest('GET', "spend-programs?$queryParams");
@@ -25,7 +25,7 @@ class SpendPrograms
     /**
      * Create a new spend program.
      */
-    public function createSpendProgram($data)
+    public function create($data)
     {
         return $this->ramp->sendRequest('POST', 'spend-programs', $data);
     }
@@ -33,7 +33,7 @@ class SpendPrograms
     /**
      * Fetch a specific spend program by its ID.
      */
-    public function fetchSpendProgram($spendProgramId)
+    public function fetch($spendProgramId)
     {
         return $this->ramp->sendRequest('GET', "spend-programs/$spendProgramId");
     }

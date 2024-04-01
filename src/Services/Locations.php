@@ -16,7 +16,7 @@ class Locations
     /**
      * List locations with optional filters.
      */
-    public function listLocations($filters = [])
+    public function list($filters = [])
     {
         $queryParams = http_build_query($filters);
         return $this->ramp->sendRequest('GET', "locations?$queryParams");
@@ -25,7 +25,7 @@ class Locations
     /**
      * Create a new location.
      */
-    public function createLocation($locationData)
+    public function create($locationData)
     {
         return $this->ramp->sendRequest('POST', 'locations', $locationData);
     }
@@ -33,7 +33,7 @@ class Locations
     /**
      * Fetch a specific location by its ID.
      */
-    public function fetchLocation($locationId)
+    public function fetch($locationId)
     {
         return $this->ramp->sendRequest('GET', "locations/$locationId");
     }
@@ -41,7 +41,7 @@ class Locations
     /**
      * Update a location.
      */
-    public function updateLocation($locationId, $locationData)
+    public function update($locationId, $locationData)
     {
         return $this->ramp->sendRequest('PATCH', "locations/$locationId", $locationData);
     }

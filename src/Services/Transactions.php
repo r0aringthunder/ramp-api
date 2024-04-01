@@ -16,7 +16,7 @@ class Transactions
     /**
      * List transactions with optional filters.
      */
-    public function listTransactions($filters = [])
+    public function list($filters = [])
     {
         $queryParams = http_build_query($filters);
         return $this->ramp->sendRequest('GET', "transactions?$queryParams");
@@ -25,7 +25,7 @@ class Transactions
     /**
      * Fetch a specific transaction by its ID.
      */
-    public function fetchTransaction($transactionId)
+    public function fetch($transactionId)
     {
         return $this->ramp->sendRequest('GET', "transactions/$transactionId");
     }

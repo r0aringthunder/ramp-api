@@ -16,7 +16,7 @@ class LedgerAccounts
     /**
      * List general ledger accounts with optional filters.
      */
-    public function listAccounts($filters = [])
+    public function list($filters = [])
     {
         $queryParams = http_build_query($filters);
         return $this->ramp->sendRequest('GET', "accounting/accounts?$queryParams");
@@ -25,7 +25,7 @@ class LedgerAccounts
     /**
      * Upload general ledger accounts.
      */
-    public function uploadAccounts($glAccounts)
+    public function upload($glAccounts)
     {
         $data = ['gl_accounts' => $glAccounts];
         return $this->ramp->sendRequest('POST', 'accounting/accounts', $data);
@@ -34,7 +34,7 @@ class LedgerAccounts
     /**
      * Fetch a specific general ledger account by its ID.
      */
-    public function fetchAccount($accountId)
+    public function fetch($accountId)
     {
         return $this->ramp->sendRequest('GET', "accounting/accounts/$accountId");
     }
@@ -42,7 +42,7 @@ class LedgerAccounts
     /**
      * Update a general ledger account.
      */
-    public function updateAccount($accountId, $accountData)
+    public function update($accountId, $accountData)
     {
         return $this->ramp->sendRequest('PATCH', "accounting/accounts/$accountId", $accountData);
     }
@@ -50,7 +50,7 @@ class LedgerAccounts
     /**
      * Delete a general ledger account.
      */
-    public function deleteAccount($accountId)
+    public function delete($accountId)
     {
         return $this->ramp->sendRequest('DELETE', "accounting/accounts/$accountId");
     }

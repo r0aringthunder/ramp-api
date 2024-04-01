@@ -4,16 +4,36 @@ namespace R0aringthunder\RampApi\Services;
 
 use R0aringthunder\RampApi\Ramp;
 
+/**
+ * Provides methods to interact with accounting-related endpoints of the Ramp API.
+ */
 class Accounting
 {
+    /**
+     * @var Ramp The Ramp service instance to handle API requests.
+     */
     protected $ramp;
 
+    /**
+     * Initializes a new instance of the Accounting service.
+     *
+     * @param Ramp $ramp The Ramp service instance.
+     */
     public function __construct(Ramp $ramp)
     {
         $this->ramp = $ramp;
     }
 
-    public function listFieldOptions($fieldId, $pageSize = null, $start = null, $isActive = null)
+    /**
+     * Lists options for a given custom accounting field.
+     *
+     * @param string      $fieldId   The ID of the custom accounting field.
+     * @param int|null    $pageSize  The number of results to return per page. Optional.
+     * @param string|null $start     The starting point for pagination (UUID). Optional.
+     * @param bool|null   $isActive  Whether to filter the results by active status. Optional.
+     * @return array The response from the Ramp API.
+     */
+    public function listOptions(string $fieldId, int|null $pageSize = null, string|null $start = null, bool|null $isActive = null): array
     {
         $queryParams = http_build_query([
             'field_id' => $fieldId,
@@ -25,7 +45,14 @@ class Accounting
         return $this->ramp->sendRequest('GET', "accounting/field-options?$queryParams");
     }
 
-    public function uploadFieldOptions($fieldId, array $options)
+    /**
+     * Uploads new options for a given custom accounting field.
+     *
+     * @param string $fieldId The ID of the custom accounting field.
+     * @param array  $options An array of options to be uploaded.
+     * @return array The response from the Ramp API.
+     */
+    public function uploadOptions(string $fieldId, array $options): array
     {
         $data = [
             'field_id' => $fieldId,
@@ -35,23 +62,43 @@ class Accounting
         return $this->ramp->sendRequest('POST', 'accounting/field-options', $data);
     }
 
-    public function fetchFieldOption($fieldOptionId)
+    /**
+     * Fetches a specific custom accounting field option by its ID.
+     *
+     * @param string $fieldOptionId The ID of the custom field option to fetch.
+     * @return array The response from the Ramp API.
+     */
+    public function fetchOption(string $optionId): array
     {
-        return $this->ramp->sendRequest('GET', "accounting/field-options/$fieldOptionId");
+        return $this->ramp->sendRequest('GET', "accounting/field-options/$optionId");
     }
 
-    public function updateFieldOption($fieldOptionId, $value = null, $reactivate = null)
+    /**
+     * Updates a specific custom accounting field option by its ID.
+     *
+     * @param string      $fieldOptionId The ID of the custom field option to update.
+     * @param string|null $value         The new value for the field option. Optional.
+     * @param bool|null   $reactivate    Whether to reactivate the field option. Optional.
+     * @return array The response from the Ramp API.
+     */
+    public function updateOption(string $optionId, string|null $value = null, bool|null $reactivate = null): array
     {
         $data = array_filter([
             'value' => $value,
             'reactivate' => $reactivate,
         ]);
 
-        return $this->ramp->sendRequest('PATCH', "accounting/field-options/$fieldOptionId", $data);
+        return $this->ramp->sendRequest('PATCH', "accounting/field-options/$optionId", $data);
     }
 
-    public function deleteFieldOption($fieldOptionId)
+    /**
+     * Deletes a specific custom accounting field option by its ID.
+     *
+     * @param string $fieldOptionId The ID of the custom field option to delete.
+     * @return array The response from the Ramp API.
+     */
+    public function deleteOption(string $optionId): array
     {
-        return $this->ramp->sendRequest('DELETE', "accounting/field-options/$fieldOptionId");
+        return $this->ramp->sendRequest('DELETE', "accounting/field-options/$optionId");
     }
 }

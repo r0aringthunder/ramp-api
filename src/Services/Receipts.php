@@ -16,7 +16,7 @@ class Receipts
     /**
      * List receipts with optional filters.
      */
-    public function listReceipts($filters = [])
+    public function list($filters = [])
     {
         $queryParams = http_build_query($filters);
         return $this->ramp->sendRequest('GET', "receipts?$queryParams");
@@ -25,7 +25,7 @@ class Receipts
     /**
      * Fetch a specific receipt by its ID.
      */
-    public function fetchReceipt($receiptId)
+    public function fetch($receiptId)
     {
         return $this->ramp->sendRequest('GET', "receipts/$receiptId");
     }

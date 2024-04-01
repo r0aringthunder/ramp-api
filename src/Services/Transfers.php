@@ -16,7 +16,7 @@ class Transfers
     /**
      * List transfer payments with optional filters.
      */
-    public function listTransfers($filters = [])
+    public function list($filters = [])
     {
         $queryParams = http_build_query($filters);
         return $this->ramp->sendRequest('GET', "transfers?$queryParams");
@@ -25,7 +25,7 @@ class Transfers
     /**
      * Fetch a specific transfer payment by its ID.
      */
-    public function fetchTransfer($transferId)
+    public function fetch($transferId)
     {
         return $this->ramp->sendRequest('GET', "transfers/$transferId");
     }

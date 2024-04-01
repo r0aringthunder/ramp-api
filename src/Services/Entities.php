@@ -16,7 +16,7 @@ class Entities
     /**
      * List business entities with optional filtering.
      */
-    public function listEntities($filters = [])
+    public function list($filters = [])
     {
         $queryParams = http_build_query($filters);
         return $this->ramp->sendRequest('GET', "entities?$queryParams");
@@ -25,7 +25,7 @@ class Entities
     /**
      * Fetch a specific business entity by its ID.
      */
-    public function fetchEntity($entityId)
+    public function fetch($entityId)
     {
         return $this->ramp->sendRequest('GET', "entities/$entityId");
     }

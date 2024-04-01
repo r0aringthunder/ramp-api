@@ -16,7 +16,7 @@ class Memos
     /**
      * List memos with optional filters.
      */
-    public function listMemos($filters = [])
+    public function list($filters = [])
     {
         $queryParams = http_build_query($filters);
         return $this->ramp->sendRequest('GET', "memos?$queryParams");
@@ -25,7 +25,7 @@ class Memos
     /**
      * Fetch a specific transaction memo by its ID.
      */
-    public function fetchMemo($transactionId)
+    public function fetch($transactionId)
     {
         return $this->ramp->sendRequest('GET', "memos/$transactionId");
     }
