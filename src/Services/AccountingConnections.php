@@ -4,10 +4,21 @@ namespace R0aringthunder\RampApi\Services;
 
 use R0aringthunder\RampApi\Ramp;
 
+/**
+ * Provides methods to interact with accounting connections-related endpoints of the Ramp API.
+ */
 class AccountingConnections
 {
+    /**
+     * @var Ramp The Ramp service instance to handle API requests.
+     */
     protected $ramp;
 
+    /**
+     * Initializes a new instance of the Accounting Connections service.
+     *
+     * @param Ramp $ramp The Ramp service instance.
+     */
     public function __construct(Ramp $ramp)
     {
         $this->ramp = $ramp;
@@ -18,7 +29,7 @@ class AccountingConnections
      *
      * @return array The response from the Ramp API.
      */
-    public function fetchAccountingConnection()
+    public function fetch(): array
     {
         return $this->ramp->sendRequest('GET', 'accounting/connection');
     }
@@ -30,7 +41,7 @@ class AccountingConnections
      * @param bool $reactivate Attempt to reactivate a deleted connection.
      * @return array The response from the Ramp API.
      */
-    public function registerAccountingConnection($remoteProviderName, $reactivate = false)
+    public function register(string $remoteProviderName, bool $reactivate = false): array
     {
         $data = [
             'reactivate' => $reactivate,
@@ -45,7 +56,7 @@ class AccountingConnections
      *
      * @return array The response from the Ramp API.
      */
-    public function deleteAccountingConnection()
+    public function delete(): array
     {
         return $this->ramp->sendRequest('DELETE', 'accounting/connection');
     }

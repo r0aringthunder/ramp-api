@@ -4,27 +4,42 @@ namespace R0aringthunder\RampApi\Services;
 
 use R0aringthunder\RampApi\Ramp;
 
+/**
+ * Provides methods to interact with business-related endpoints of the Ramp API.
+ */
 class Business
 {
+    /**
+     * @var Ramp The Ramp service instance to handle API requests.
+     */
     protected $ramp;
 
+    /**
+     * Initializes a new instance of the Business service.
+     *
+     * @param Ramp $ramp The Ramp service instance.
+     */
     public function __construct(Ramp $ramp)
     {
         $this->ramp = $ramp;
     }
 
     /**
-     * Fetch the company information.
+     * Fetches company information from the Ramp API.
+     *
+     * @return array The response from the Ramp API.
      */
-    public function fetchCompanyInformation()
+    public function fetch(): array
     {
         return $this->ramp->sendRequest('GET', 'business');
     }
 
     /**
-     * Fetch the company balance information.
+     * Fetches the company's balance information from the Ramp API.
+     *
+     * @return array The response from the Ramp API.
      */
-    public function fetchCompanyBalanceInformation()
+    public function fetchBalance(): array
     {
         return $this->ramp->sendRequest('GET', 'business/balance');
     }
