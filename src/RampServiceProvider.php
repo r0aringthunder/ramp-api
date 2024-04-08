@@ -9,7 +9,8 @@ use Illuminate\Support\ServiceProvider;
  * This service provider is responsible for bootstrapping the RampAPI package, including publishing configuration
  * files and registering services into the Laravel application container.
  */
-class RampServiceProvider extends ServiceProvider {
+class RampServiceProvider extends ServiceProvider
+{
     /**
      * Bootstrap services.
      * 

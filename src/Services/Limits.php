@@ -4,15 +4,8 @@ namespace R0aringthunder\RampApi\Services;
 
 use R0aringthunder\RampApi\Ramp;
 
-class Limits
+class Limits extends Base
 {
-    protected $ramp;
-
-    public function __construct(Ramp $ramp)
-    {
-        $this->ramp = $ramp;
-    }
-
     /**
      * List limits with optional filters.
      */

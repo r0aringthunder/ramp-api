@@ -4,15 +4,8 @@ namespace R0aringthunder\RampApi\Services;
 
 use R0aringthunder\RampApi\Ramp;
 
-class Merchants
+class Merchants extends Base
 {
-    protected $ramp;
-
-    public function __construct(Ramp $ramp)
-    {
-        $this->ramp = $ramp;
-    }
-
     /**
      * List merchants with optional filters.
      */
