@@ -3,6 +3,7 @@
 namespace R0aringthunder\RampApi\Services;
 
 use R0aringthunder\RampApi\Ramp;
+use R0aringthunder\RampApi\Utils\User;
 
 class Users
 {
@@ -43,7 +44,8 @@ class Users
      */
     public function fetch($userId)
     {
-        return $this->ramp->sendRequest('GET', "users/$userId");
+        $userData = $this->ramp->sendRequest('GET', "users/$userId");
+        return new User($userData);
     }
 
     /**
