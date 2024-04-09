@@ -3,7 +3,7 @@
 namespace R0aringthunder\RampApi\Services;
 
 use R0aringthunder\RampApi\Ramp;
-use R0aringthunder\RampApi\Utils\User;
+use R0aringthunder\RampApi\Utils\UsersUtil;
 
 class Users extends Base
 {
@@ -36,8 +36,8 @@ class Users extends Base
      * Fetch a specific user by their ID.
      */
     public function fetch($userId) {
-        $userData = $this->ramp->sendRequest('GET', "users/$userId");
-        return new User($userData);
+        $response = $this->ramp->sendRequest('GET', "users/$userId");
+        return new UsersUtil($response);
     }
 
     /**

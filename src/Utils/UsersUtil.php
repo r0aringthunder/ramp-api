@@ -2,24 +2,42 @@
 
 namespace R0aringthunder\RampApi\Utils;
 
-use R0aringthunder\RampApi\Ramp;
-
-/**
- * Represents a user and provides methods to calculate total spend.
- */
-class User
+class UsersUtil
 {
     protected $userData;
-    protected $ramp;
+    private $utilized = false;
 
-    /**
-     * Initializes a new instance of the User class.
-     *
-     * @param array $userData The data for this user.
-     */
-    public function __construct($userData) {
+    public function __construct($userData)
+    {
         $this->userData = $userData;
-        $this->ramp = new Ramp();
+    }
+
+    public function __call($name, $arguments)
+    {
+        // When a method is called, switch to using utilities
+        $this->utilized = true;
+        $userUtils = new UsersUtil($this->userData);
+
+        // Forward the method call to UserUtils instance
+        if (method_exists($userUtils, $name)) {
+            return call_user_func_array([$userUtils, $name], $arguments);
+        }
+
+        throw new \Exception("Method {$name} does not exist in UserUtils.");
+    }
+
+    public function __destruct()
+    {
+        // If no methods were called, it means the user is interested in the raw data
+        if (!$this->utilized) {
+            // You could directly output data, but consider better patterns for your use case
+            echo json_encode($this->userData);
+        }
+    }
+
+    public function totalSpendThisMonth() {
+        // Implementation
+        return $this->userData; // Just a placeholder
     }
 
     private function getUserOwnedCards() {
