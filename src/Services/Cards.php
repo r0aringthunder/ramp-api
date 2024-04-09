@@ -30,9 +30,10 @@ class Cards
      * @param array $queryParams Optional query parameters to filter the list of cards.
      * @return array The response from the Ramp API.
      */
-    public function list(array $queryParams = []): array
+    public function list(array $filters = []): array
     {
-        return $this->ramp->sendRequest('GET', 'cards', $queryParams);
+        $queryParams = http_build_query($filters);
+        return $this->ramp->sendRequest('GET', "users?$queryParams");
     }
 
     /**
