@@ -2,6 +2,8 @@
 
 namespace R0aringthunder\RampApi\Utils;
 
+use R0aringthunder\RampApi\Ramp;
+
 class UsersUtil
 {
     protected $userData;
@@ -70,7 +72,7 @@ class UsersUtil
     
         foreach ($userOwnedCards as $index => $card) {
             $cardId = $card['id'];
-            $transactions = $this->ramp->transactions->list(['card_id' => $cardId])['data'] ?? [];
+            $transactions = (new Ramp)->transactions->list(['card_id' => $cardId])['data'] ?? [];
             
             foreach ($transactions as $transaction) {
                 $totalClearedAmount += $transaction['amount'];
