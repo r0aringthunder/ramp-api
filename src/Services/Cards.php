@@ -33,7 +33,7 @@ class Cards
     public function list(array $filters = []): array
     {
         $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest('GET', "users?$queryParams");
+        return $this->ramp->sendRequest('GET', "cards?$queryParams");
     }
 
     /**
