@@ -3,16 +3,10 @@
 namespace R0aringthunder\RampApi\Services;
 
 use R0aringthunder\RampApi\Ramp;
+use R0aringthunder\RampApi\Utils\UsersUtil;
 
-class Users
+class Users extends Base
 {
-    protected $ramp;
-
-    public function __construct(Ramp $ramp)
-    {
-        $this->ramp = $ramp;
-    }
-
     /**
      * List users with optional filters.
      */
@@ -41,9 +35,9 @@ class Users
     /**
      * Fetch a specific user by their ID.
      */
-    public function fetch($userId)
-    {
-        return $this->ramp->sendRequest('GET', "users/$userId");
+    public function fetch($userId) {
+        $response = $this->ramp->sendRequest('GET', "users/$userId");
+        return new UsersUtil($response);
     }
 
     /**

@@ -7,23 +7,8 @@ use R0aringthunder\RampApi\Ramp;
 /**
  * Provides methods to interact with card-related endpoints of the Ramp API.
  */
-class Cards
+class Cards extends Base
 {
-    /**
-     * @var Ramp The Ramp service instance to handle API requests.
-     */
-    protected $ramp;
-
-    /**
-     * Initializes a new instance of the Cards service.
-     *
-     * @param Ramp $ramp The Ramp service instance.
-     */
-    public function __construct(Ramp $ramp)
-    {
-        $this->ramp = $ramp;
-    }
-
     /**
      * Lists cards with optional filtering parameters.
      *
