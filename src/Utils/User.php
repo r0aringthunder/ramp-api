@@ -9,29 +9,29 @@ use R0aringthunder\RampApi\Ramp;
  */
 class User
 {
-    protected $userData;
+    protected $data;
     protected $ramp;
 
     /**
      * Initializes a new instance of the User class.
      *
-     * @param array $userData The data for this user.
+     * @param array $data The data for this user.
      */
-    public function __construct($userData) {
-        $this->userData = $userData;
+    public function __construct($data) {
+        $this->data = $data;
         $this->ramp = new Ramp();
     }
 
     private function getUserOwnedCards() {
-        return $this->ramp->cards->list(['user_id' => $this->userData['id']])['data'] ?? [];
+        return $this->ramp->cards->list(['user_id' => $this->data['id']])['data'] ?? [];
     }
 
     public function getAllUserData() {
         $cards = $this->getUserOwnedCards();
-        $transactions = $this->ramp->transactions->list(['user_id' => $this->userData['id']])['data'] ?? [];
-        $reimbursements = $this->ramp->reimbursements->list(['user_id' => $this->userData['id']])['data'] ?? [];
-        $memos = $this->ramp->memos->list(['user_id' => $this->userData['id']])['data'] ?? [];
-        $limits = $this->ramp->limits->listLimits(['user_id' => $this->userData['id']])['data'] ?? [];
+        $transactions = $this->ramp->transactions->list(['user_id' => $this->data['id']])['data'] ?? [];
+        $reimbursements = $this->ramp->reimbursements->list(['user_id' => $this->data['id']])['data'] ?? [];
+        $memos = $this->ramp->memos->list(['user_id' => $this->data['id']])['data'] ?? [];
+        $limits = $this->ramp->limits->listLimits(['user_id' => $this->data['id']])['data'] ?? [];
         return [
             'cards' => $cards,
             'transactions' => $transactions,
@@ -75,7 +75,7 @@ class User
 
         foreach ($userOwnedCards as $card) {
             $transactions = $this->ramp->transactions->list([
-                'user_id' => $this->userData['id'],
+                'user_id' => $this->data['id'],
                 'from_date' => $startDate,
                 'to_date' => $endDate,
             ])['data'] ?? [];
@@ -105,7 +105,7 @@ class User
 
         $userOwnedCards = $this->getUserOwnedCards();
         foreach ($userOwnedCards as $card) {
-            $queryParams = ['user_id' => $this->userData['id']];
+            $queryParams = ['user_id' => $this->data['id']];
 
             // Default to the current year if not specified
             $currentYear = date('Y');
