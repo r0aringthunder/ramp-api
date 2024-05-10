@@ -78,13 +78,16 @@ class Ramp
             $headers[] = 'Authorization: Bearer ' . $this->accessToken;
         }
 
+        $headers[] = 'Content-Type: application/json';
+        $headers[] = 'Accept: application/json';
+
         if (!empty($headers)) {
             $options[CURLOPT_HTTPHEADER] = $headers;
         }
 
         if (!empty($data)) {
             if ($method === 'POST' || $method === 'PATCH') {
-                $options[CURLOPT_POSTFIELDS] = $data;
+                $options[CURLOPT_POSTFIELDS] = json_encode($data);
             }
         }
 
