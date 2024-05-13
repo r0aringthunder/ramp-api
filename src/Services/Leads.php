@@ -16,25 +16,27 @@ class Leads
     /**
      * Create a sales lead.
      */
-    public function create($leadData)
+    public function create(array $data = [])
     {
-        return $this->ramp->sendRequest('POST', 'leads', $leadData);
+        $data = json_encode($data);
+        return $this->ramp->sendRequest(method: "POST", endpoint: "leads", data: "$data");
     }
 
     /**
      * Fetch a specific sales lead by its ID.
      */
-    public function fetch($salesLeadId)
+    public function fetch(string $id)
     {
-        return $this->ramp->sendRequest('GET', "leads/$salesLeadId");
+        return $this->ramp->sendRequest(method: "GET", endpoint: "leads/$id");
     }
 
     /**
      * Upload documents required by the financing application process (Deprecated).
      */
-    public function upload($salesLeadId, $documentData)
+    public function upload(string $id, array $data = [])
     {
-        // Note: This operation is marked as deprecated in the API documentation.
-        return $this->ramp->sendRequest('POST', "leads/$salesLeadId/upload_document", $documentData);
+        // Note: This operation is marked as to be deprecated in the API documentation for a future release.
+        $data = json_encode($data);
+        return $this->ramp->sendRequest(method: "POST", endpoint: "leads/$id/upload_document", data: $data);
     }
 }

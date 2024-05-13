@@ -16,42 +16,43 @@ class LedgerAccounts
     /**
      * List general ledger accounts with optional filters.
      */
-    public function list($filters = [])
+    public function list(array $filters = [])
     {
         $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest('GET', "accounting/accounts?$queryParams");
+        return $this->ramp->sendRequest(method: "GET", endpoint: "accounting/accounts?$queryParams");
     }
 
     /**
      * Upload general ledger accounts.
      */
-    public function upload($glAccounts)
+    public function upload(array $data)
     {
-        $data = ['gl_accounts' => $glAccounts];
-        return $this->ramp->sendRequest('POST', 'accounting/accounts', $data);
+        $data = json_encode(['gl_accounts' => $data]);
+        return $this->ramp->sendRequest(method: "POST", endpoint: "accounting/accounts", data: "$data");
     }
 
     /**
      * Fetch a specific general ledger account by its ID.
      */
-    public function fetch($accountId)
+    public function fetch($id)
     {
-        return $this->ramp->sendRequest('GET', "accounting/accounts/$accountId");
+        return $this->ramp->sendRequest(method: "GET", endpoint: "accounting/accounts/$id");
     }
 
     /**
      * Update a general ledger account.
      */
-    public function update($accountId, $accountData)
+    public function update($id, $data)
     {
-        return $this->ramp->sendRequest('PATCH', "accounting/accounts/$accountId", $accountData);
+        $data = json_encode($data);
+        return $this->ramp->sendRequest(method: "PATCH", endpoint: "accounting/accounts/$id", data: "$data");
     }
 
     /**
      * Delete a general ledger account.
      */
-    public function delete($accountId)
+    public function delete($id)
     {
-        return $this->ramp->sendRequest('DELETE', "accounting/accounts/$accountId");
+        return $this->ramp->sendRequest(method: "DELETE", endpoint: "accounting/accounts/$id");
     }
 }

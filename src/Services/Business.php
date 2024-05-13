@@ -31,7 +31,7 @@ class Business
      */
     public function fetch(): array
     {
-        return $this->ramp->sendRequest('GET', 'business');
+        return $this->ramp->sendRequest(method: "GET", endpoint: "business");
     }
 
     /**
@@ -39,8 +39,8 @@ class Business
      *
      * @return array The response from the Ramp API.
      */
-    public function fetchBalance(): array
+    public function balance(): array
     {
-        return $this->ramp->sendRequest('GET', 'business/balance');
+        return $this->ramp->sendRequest(method: "GET", endpoint: "business/balance");
     }
 }

@@ -16,35 +16,35 @@ class Departments
     /**
      * List departments with optional pagination.
      */
-    public function list($start = null, $pageSize = null)
+    public function list(string $start = null, int $pageSize = null)
     {
-        $queryParams = http_build_query(compact('start', 'pageSize'));
-        return $this->ramp->sendRequest('GET', "departments?$queryParams");
+        $queryParams = http_build_query(compact("start", "pageSize"));
+        return $this->ramp->sendRequest("GET", "departments?$queryParams");
     }
 
     /**
      * Create a new department.
      */
-    public function create($name)
+    public function create(string $name)
     {
-        $data = ['name' => $name];
-        return $this->ramp->sendRequest('POST', 'departments', $data);
+        $data = json_encode(["name" => $name]);
+        return $this->ramp->sendRequest(method: "POST", endpoint: "departments", data: "$data");
     }
 
     /**
      * Fetch a specific department by its ID.
      */
-    public function fetch($departmentId)
+    public function fetch(string $departmentId)
     {
-        return $this->ramp->sendRequest('GET', "departments/$departmentId");
+        return $this->ramp->sendRequest(method: "GET", endpoint: "departments/$departmentId");
     }
 
     /**
      * Update a department.
      */
-    public function update($departmentId, $name)
+    public function update(string $id, string $name)
     {
-        $data = ['id' => $departmentId, 'name' => $name];
-        return $this->ramp->sendRequest('PATCH', "departments/$departmentId", $data);
+        $data = json_encode(["id" => $id, "name" => $name]);
+        return $this->ramp->sendRequest(method: "PATCH", endpoint: "departments/$id", data: "$data");
     }
 }

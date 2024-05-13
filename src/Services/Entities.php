@@ -16,17 +16,17 @@ class Entities
     /**
      * List business entities with optional filtering.
      */
-    public function list($filters = [])
+    public function list(array $filters = [])
     {
         $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest('GET', "entities?$queryParams");
+        return $this->ramp->sendRequest(method: "GET", endpoint: "entities?$queryParams");
     }
 
     /**
      * Fetch a specific business entity by its ID.
      */
-    public function fetch($entityId)
+    public function fetch(string $id)
     {
-        return $this->ramp->sendRequest('GET', "entities/$entityId");
+        return $this->ramp->sendRequest(method: "GET", endpoint: "entities/$id");
     }
 }

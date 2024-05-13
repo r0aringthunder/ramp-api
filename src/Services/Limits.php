@@ -19,62 +19,65 @@ class Limits
     public function listLimits($filters = [])
     {
         $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest('GET', "limits?$queryParams");
+        return $this->ramp->sendRequest(method: "GET", endpoint: "limits?$queryParams");
     }
 
     /**
      * Create a limit.
      */
-    public function createLimit($limitData)
+    public function createLimit($data)
     {
-        return $this->ramp->sendRequest('POST', 'limits/deferred', $limitData);
+        $data = json_encode($data);
+        return $this->ramp->sendRequest(method: "POST", endpoint: "limits/deferred", data: "$data");
     }
 
     /**
      * Fetch deferred task status by its ID.
      */
-    public function fetchDeferredTaskStatus($taskId)
+    public function fetchDeferredTaskStatus($id)
     {
-        return $this->ramp->sendRequest('GET', "limits/deferred/status/$taskId");
+        return $this->ramp->sendRequest(method: "GET", endpoint: "limits/deferred/status/$id");
     }
 
     /**
      * Fetch a specific limit by its ID.
      */
-    public function fetchLimit($limitId)
+    public function fetchLimit($id)
     {
-        return $this->ramp->sendRequest('GET', "limits/$limitId");
+        return $this->ramp->sendRequest(method: "GET", endpoint: "limits/$id");
     }
 
     /**
      * Update a limit.
      */
-    public function updateLimit($limitId, $limitData)
+    public function updateLimit($id, $data)
     {
-        return $this->ramp->sendRequest('PATCH', "limits/$limitId", $limitData);
+        $data = json_encode($data);
+        return $this->ramp->sendRequest(method: "PATCH", endpoint: "limits/$id", data: "$data");
     }
 
     /**
      * Terminate a limit permanently.
      */
-    public function terminateLimit($limitId, $idempotencyKey)
+    public function terminateLimit($id, $idempotencyKey)
     {
-        return $this->ramp->sendRequest('POST', "limits/$limitId/deferred/termination", ['idempotency_key' => $idempotencyKey]);
+        $data = json_encode(["idempotency_key" => $idempotencyKey]);
+        return $this->ramp->sendRequest(method: "POST", endpoint: "limits/$id/deferred/termination", data: "$data");
     }
 
     /**
      * Suspend a limit.
      */
-    public function suspendLimit($limitId)
+    public function suspendLimit($id)
     {
-        return $this->ramp->sendRequest('POST', "limits/$limitId/suspension");
+        return $this->ramp->sendRequest(method: "POST", endpoint: "limits/$id/suspension");
     }
 
     /**
      * Unsuspend a limit.
      */
-    public function unsuspendLimit($limitId)
+    public function unsuspendLimit($id)
     {
-        return $this->ramp->sendRequest('POST', "limits/$limitId/unsuspension");
+        return $this->ramp->sendRequest(method: "POST", endpoint: "limits/$id/unsuspension");
     }
 }

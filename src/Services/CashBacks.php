@@ -27,13 +27,13 @@ class CashBacks
     /**
      * Lists cashback payments with optional filtering.
      * @param array $filters An associative array of query parameters for filtering the list of cashback payments.
-     *                       Possible keys include 'entity_id', 'statement_id', 'from_date', 'to_date', 'start', 'page_size'.
+     *                       Possible keys include "entity_id", "statement_id", "from_date", "to_date", "start", "page_size".
      * @return array The response from the Ramp API.
      */
     public function list(array $filters = []): array
     {
         $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest('GET', "cashbacks?$queryParams");
+        return $this->ramp->sendRequest(method: "GET", endpoint: "cashbacks?$queryParams");
     }
 
     /**
@@ -44,6 +44,6 @@ class CashBacks
      */
     public function fetch(string $cashbackId): array
     {
-        return $this->ramp->sendRequest('GET', "cashbacks/$cashbackId");
+        return $this->ramp->sendRequest(method: "GET", endpoint: "cashbacks/$cashbackId");
     }
 }

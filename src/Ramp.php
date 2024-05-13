@@ -56,7 +56,7 @@ class Ramp
         ], http_build_query([
             'grant_type' => 'client_credentials',
             'scope' => $scopes,
-        ]), false);
+        ]));
 
         if (isset($response['access_token'])) {
             $this->accessToken = $response['access_token'];
@@ -78,46 +78,44 @@ class Ramp
      * @return mixed The JSON-decoded response from the API.
      * @throws Exception If a cURL error occurs during the request.
      */
-    public function sendRequest($method, $endpoint, $headers = [], $data = null, $addAuthHeader = true)
+    public function sendRequest($method, $endpoint, $headers = [], $data = null)
     {
         $curl = curl_init();
-
         $url = $this->baseUrl . $endpoint;
-        $options = [
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_CUSTOMREQUEST => strtoupper($method),
-        ];
 
-        if (!$addAuthHeader) {
+        if ($endpoint === 'token') {
             $credentials = base64_encode($this->clientId . ':' . $this->clientSecret);
             $headers[] = 'Authorization: Basic ' . $credentials;
         } elseif ($this->accessToken) {
             $headers[] = 'Authorization: Bearer ' . $this->accessToken;
         }
 
-        $headers[] = 'Content-Type: application/json';
-        $headers[] = 'Accept: application/json';
-
-        if (!empty($headers)) {
-            $options[CURLOPT_HTTPHEADER] = $headers;
+        if($method === 'POST' || $method === 'PATCH') {
+            $headers[] = "Content-Type: application/json";
         }
 
-        if (!empty($data)) {
-            if ($method === 'POST' || $method === 'PATCH') {
-                $options[CURLOPT_POSTFIELDS] = json_encode($data);
-            }
+        $options = [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => strtoupper($method),
+            CURLOPT_HTTPHEADER => $headers
+        ];
+    
+        // Ensure data is JSON encoded if required
+        if ($data !== null && ($method === 'POST' || $method === 'PATCH')) {
+            $options[CURLOPT_POSTFIELDS] = $data;
         }
-
+    
         curl_setopt_array($curl, $options);
         $response = curl_exec($curl);
         $err = curl_error($curl);
-        curl_close($curl);
 
+        curl_close($curl);
+    
         if ($err) {
             throw new \Exception("cURL Error: " . $err);
         }
-
+    
         return json_decode($response, true);
     }
 
