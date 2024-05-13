@@ -31,7 +31,7 @@ class AccountingConnections
      */
     public function fetch(): array
     {
-        return $this->ramp->sendRequest('GET', 'accounting/connection');
+        return $this->ramp->sendRequest(method: "GET", endpoint: "accounting/connection");
     }
 
     /**
@@ -43,12 +43,11 @@ class AccountingConnections
      */
     public function register(string $remoteProviderName, bool $reactivate = false): array
     {
-        $data = [
-            'reactivate' => $reactivate,
-            'remote_provider_name' => $remoteProviderName,
-        ];
-
-        return $this->ramp->sendRequest('POST', 'accounting/connection', $data);
+        $data = json_encode([
+            "reactivate" => $reactivate,
+            "remote_provider_name" => $remoteProviderName,
+        ]);
+        return $this->ramp->sendRequest(method: "POST", endpoint: "accounting/connection", data: "$data");
     }
 
     /**
@@ -58,6 +57,6 @@ class AccountingConnections
      */
     public function delete(): array
     {
-        return $this->ramp->sendRequest('DELETE', 'accounting/connection');
+        return $this->ramp->sendRequest(method: "DELETE", endpoint: "accounting/connection");
     }
 }

@@ -16,17 +16,17 @@ class Memos
     /**
      * List memos with optional filters.
      */
-    public function list($filters = [])
+    public function list(array $filters = [])
     {
         $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest('GET', "memos?$queryParams");
+        return $this->ramp->sendRequest(method: "GET", endpoint: "memos?$queryParams");
     }
 
     /**
      * Fetch a specific transaction memo by its ID.
      */
-    public function fetch($transactionId)
+    public function fetch(string $id)
     {
-        return $this->ramp->sendRequest('GET', "memos/$transactionId");
+        return $this->ramp->sendRequest(method: "GET", endpoint: "memos/$id");
     }
 }
