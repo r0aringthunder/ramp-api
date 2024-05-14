@@ -1,9 +1,12 @@
 <?php
 
 return [
+    // Enable or disable the Ramp API
+    'enabled' => env('RAMP_ENABLED', true),
+
     // Your Ramp API keys
-    'client_id' => env('RAMP_CLIENT_ID', 'your_client_id'),
-    'client_secret' => env('RAMP_CLIENT_SECRET', 'your_client_secret'),
+    'client_id' => env('RAMP_CLIENT_ID'),
+    'client_secret' => env('RAMP_CLIENT_SECRET'),
     
     // False will put you in the Ramp sandbox but true will interact with production Ramp data
     'prod_ready' => env('PROD_READY', false),

@@ -4,12 +4,15 @@ namespace R0aringthunder\RampApi;
 
 use FilesystemIterator;
 use SplFileInfo;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class Ramp serves as the main entry point to interact with Ramp API, managing authentication and service requests.
  */
 class Ramp
 {
+    protected $enabled;
     protected $baseUrl;
     protected $clientId;
     protected $clientSecret;
@@ -32,6 +35,10 @@ class Ramp
      */
     protected function initialize()
     {
+        if (!config("ramp.enabled")) {
+            Log::error("Ramp API is not enabled. To enable it, set RAMP_ENABLED to true in your .env file.");
+            return;
+        }
         $this->clientId = config("ramp.client_id");
         $this->clientSecret = config("ramp.client_secret");
         $this->baseUrl = config("ramp.prod_ready") ? "https://api.ramp.com/developer/v1/" : "https://demo-api.ramp.com/developer/v1/";
@@ -113,7 +120,7 @@ class Ramp
         curl_close($curl);
     
         if ($err) {
-            throw new \Exception("cURL Error: " . $err);
+            throw new Exception("cURL Error: " . $err);
         }
     
         return json_decode($response, true);
