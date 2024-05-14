@@ -16,17 +16,23 @@ class Receipts
     /**
      * List receipts with optional filters.
      */
-    public function list($filters = [])
+    public function list(array $filters = []): array
     {
-        $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest('GET', "receipts?$queryParams");
+        $filters = http_build_query($filters);
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "receipts?$filters"
+        );
     }
 
     /**
      * Fetch a specific receipt by its ID.
      */
-    public function fetch($receiptId)
+    public function fetch(string $id): array
     {
-        return $this->ramp->sendRequest('GET', "receipts/$receiptId");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "receipts/$id"
+        );
     }
 }

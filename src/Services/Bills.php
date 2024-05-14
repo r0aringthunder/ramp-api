@@ -34,8 +34,11 @@ class Bills
      */
     public function list(array $filters = []): array
     {
-        $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest(method: "GET", endpoint: "bills?$queryParams");
+        $filters = http_build_query($filters);
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "bills?$filters"
+        );
     }
 
     /**
@@ -46,6 +49,9 @@ class Bills
      */
     public function fetch(string $billId): array
     {
-        return $this->ramp->sendRequest(method: "GET", endpoint: "bills/$billId");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "bills/$billId"
+        );
     }
 }

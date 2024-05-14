@@ -16,17 +16,23 @@ class Transactions
     /**
      * List transactions with optional filters.
      */
-    public function list($filters = [])
+    public function list(array $filters = []): array
     {
-        $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest('GET', "transactions?$queryParams");
+        $filters = http_build_query($filters);
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "transactions?$filters"
+        );
     }
 
     /**
      * Fetch a specific transaction by its ID.
      */
-    public function fetch($transactionId)
+    public function fetch(array $id): array
     {
-        return $this->ramp->sendRequest('GET', "transactions/$transactionId");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "transactions/$id"
+        );
     }
 }

@@ -16,41 +16,60 @@ class Vendors
     /**
      * List vendors with optional filters.
      */
-    public function list($filters = [])
+    public function list(array $filters = []): array
     {
-        $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest('GET', "accounting/vendors?$queryParams");
+        $filters = http_build_query($filters);
+        return $this->ramp->sendRequest(
+            "GET",
+            "accounting/vendors?$filters"
+        );
     }
 
     /**
      * Upload vendors.
      */
-    public function upload($vendors)
+    public function upload(array $data): array
     {
-        return $this->ramp->sendRequest('POST', 'accounting/vendors', ['vendors' => $vendors]);
+        $data = json_encode(["vendors" => $data]);
+        return $this->ramp->sendRequest(
+            method: "POST",
+            endpoint: "accounting/vendors",
+            data: "$data"
+        );
     }
 
     /**
      * Fetch a specific vendor by their ID.
      */
-    public function fetch($vendorId)
+    public function fetch(string $id): array
     {
-        return $this->ramp->sendRequest('GET', "accounting/vendors/$vendorId");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "accounting/vendors/$id"
+        );
     }
 
     /**
      * Update a specific vendor by their ID.
      */
-    public function update($vendorId, $vendorData)
+    public function update(string $id, array $data): array
     {
-        return $this->ramp->sendRequest('PATCH', "accounting/vendors/$vendorId", $vendorData);
+        $data = json_encode($data);
+        return $this->ramp->sendRequest(
+            method: "PATCH",
+            endpoint: "accounting/vendors/$id",
+            data: "$data"
+        );
     }
 
     /**
      * Delete a specific vendor by their ID.
      */
-    public function delete($vendorId)
+    public function delete(string $id): array
     {
-        return $this->ramp->sendRequest('DELETE', "accounting/vendors/$vendorId");
+        return $this->ramp->sendRequest(
+            method: "DELETE",
+            endpoint: "accounting/vendors/$id"
+        );
     }
 }

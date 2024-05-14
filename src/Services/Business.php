@@ -31,7 +31,10 @@ class Business
      */
     public function fetch(): array
     {
-        return $this->ramp->sendRequest(method: "GET", endpoint: "business");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "business"
+        );
     }
 
     /**
@@ -41,6 +44,9 @@ class Business
      */
     public function balance(): array
     {
-        return $this->ramp->sendRequest(method: "GET", endpoint: "business/balance");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "business/balance"
+        );
     }
 }

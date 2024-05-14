@@ -19,7 +19,11 @@ class Leads
     public function create(array $data = [])
     {
         $data = json_encode($data);
-        return $this->ramp->sendRequest(method: "POST", endpoint: "leads", data: "$data");
+        return $this->ramp->sendRequest(
+            method: "POST",
+            endpoint: "leads",
+            data: "$data"
+        );
     }
 
     /**
@@ -27,7 +31,10 @@ class Leads
      */
     public function fetch(string $id)
     {
-        return $this->ramp->sendRequest(method: "GET", endpoint: "leads/$id");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "leads/$id"
+        );
     }
 
     /**
@@ -37,6 +44,10 @@ class Leads
     {
         // Note: This operation is marked as to be deprecated in the API documentation for a future release.
         $data = json_encode($data);
-        return $this->ramp->sendRequest(method: "POST", endpoint: "leads/$id/upload_document", data: $data);
+        return $this->ramp->sendRequest(
+            method: "POST",
+            endpoint: "leads/$id/upload_document",
+            data: $data
+        );
     }
 }

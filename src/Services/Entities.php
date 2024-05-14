@@ -18,8 +18,11 @@ class Entities
      */
     public function list(array $filters = [])
     {
-        $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest(method: "GET", endpoint: "entities?$queryParams");
+        $filters = http_build_query($filters);
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "entities?$filters"
+        );
     }
 
     /**
@@ -27,6 +30,9 @@ class Entities
      */
     public function fetch(string $id)
     {
-        return $this->ramp->sendRequest(method: "GET", endpoint: "entities/$id");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "entities/$id"
+        );
     }
 }

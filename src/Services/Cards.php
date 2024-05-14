@@ -27,13 +27,16 @@ class Cards
     /**
      * Lists cards with optional filtering parameters.
      *
-     * @param array $queryParams Optional query parameters to filter the list of cards.
+     * @param array $filters Optional query parameters to filter the list of cards.
      * @return array The response from the Ramp API.
      */
     public function list(array $filters = []): array
     {
-        $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest(method: "GET", endpoint: "cards?$queryParams");
+        $filters = http_build_query($filters);
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "cards?$filters"
+        );
     }
 
     /**
@@ -45,7 +48,11 @@ class Cards
     public function createPhysical(array $data): array
     {
         $data = json_encode($data);
-        return $this->ramp->sendRequest(method: "POST", endpoint: "cards/deferred/physical", data: "$data");
+        return $this->ramp->sendRequest(
+            method: "POST",
+            endpoint: "cards/deferred/physical",
+            data: "$data"
+        );
     }
 
     /**
@@ -57,7 +64,11 @@ class Cards
     public function createVirtual(array $data): array
     {
         $data = json_encode($data);
-        return $this->ramp->sendRequest(method: "POST", endpoint: "cards/deferred/virtual", data: "$data");
+        return $this->ramp->sendRequest(
+            method: "POST",
+            endpoint: "cards/deferred/virtual",
+            data: "$data"
+        );
     }
 
     /**
@@ -68,7 +79,10 @@ class Cards
      */
     public function fetch(string $cardId): array
     {
-        return $this->ramp->sendRequest(method: "GET", endpoint: "cards/{$cardId}");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "cards/{$cardId}"
+        );
     }
 
     /**
@@ -81,7 +95,11 @@ class Cards
     public function update(string $cardId, array $data): array
     {
         $data = json_encode($data);
-        return $this->ramp->sendRequest(method: "PATCH", endpoint: "cards/{$cardId}", data: "$data");
+        return $this->ramp->sendRequest(
+            method: "PATCH",
+            endpoint: "cards/{$cardId}",
+            data: "$data"
+        );
     }
 
     /**
@@ -94,7 +112,11 @@ class Cards
     public function suspend(string $cardId, string $idempotencyKey): array
     {
         $data = json_encode(["idempotency_key" => $idempotencyKey]);
-        return $this->ramp->sendRequest(method: "POST", endpoint: "cards/{$cardId}/deferred/suspension", data: "$data");
+        return $this->ramp->sendRequest(
+            method: "POST",
+            endpoint: "cards/{$cardId}/deferred/suspension",
+            data: "$data"
+        );
     }
 
     /**
@@ -107,7 +129,11 @@ class Cards
     public function terminate(string $cardId, string $idempotencyKey): array
     {
         $data = json_encode(["idempotency_key" => $idempotencyKey]);
-        return $this->ramp->sendRequest(method: "POST", endpoint: "cards/{$cardId}/deferred/termination", data: "$data");
+        return $this->ramp->sendRequest(
+            method: "POST",
+            endpoint: "cards/{$cardId}/deferred/termination",
+            data: "$data"
+        );
     }
 
     /**
@@ -120,6 +146,10 @@ class Cards
     public function unlock(string $cardId, string $idempotencyKey): array
     {
         $data = json_encode(["idempotency_key" => $idempotencyKey]);
-        return $this->ramp->sendRequest(method: "POST", endpoint: "cards/{$cardId}/deferred/unsuspension", data: "$data");
+        return $this->ramp->sendRequest(
+            method: "POST",
+            endpoint: "cards/{$cardId}/deferred/unsuspension",
+            data: "$data"
+        );
     }
 }

@@ -16,35 +16,49 @@ class Locations
     /**
      * List locations with optional filters.
      */
-    public function list(array $filters = [])
+    public function list(array $filters = []): array
     {
-        $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest(method: "GET", endpoint: "locations?$queryParams");
+        $filters = http_build_query($filters);
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "locations?$filters"
+        );
     }
 
     /**
      * Create a new location.
      */
-    public function create(array $data)
+    public function create(array $data): array
     {
         $data = json_encode($data);
-        return $this->ramp->sendRequest(method: "POST", endpoint: "locations", data: "$data");
+        return $this->ramp->sendRequest(
+            method: "POST",
+            endpoint: "locations",
+            data: "$data"
+        );
     }
 
     /**
      * Fetch a specific location by its ID.
      */
-    public function fetch(string $id)
+    public function fetch(string $id): array
     {
-        return $this->ramp->sendRequest(method: "GET", endpoint: "locations/$id");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "locations/$id"
+        );
     }
 
     /**
      * Update a location.
      */
-    public function update(string $id, array $data)
+    public function update(string $id, array $data): array
     {
         $data = json_encode($data);
-        return $this->ramp->sendRequest(method: "PATCH", endpoint: "locations/$id", data: "$data");
+        return $this->ramp->sendRequest(
+            method: "PATCH",
+            endpoint: "locations/$id",
+            data: "$data"
+        );
     }
 }

@@ -18,8 +18,8 @@ class Departments
      */
     public function list(string $start = null, int $pageSize = null)
     {
-        $queryParams = http_build_query(compact("start", "pageSize"));
-        return $this->ramp->sendRequest("GET", "departments?$queryParams");
+        $filters = http_build_query(compact("start", "pageSize"));
+        return $this->ramp->sendRequest("GET", "departments?$filters");
     }
 
     /**
@@ -28,7 +28,11 @@ class Departments
     public function create(string $name)
     {
         $data = json_encode(["name" => $name]);
-        return $this->ramp->sendRequest(method: "POST", endpoint: "departments", data: "$data");
+        return $this->ramp->sendRequest(
+            method: "POST",
+            endpoint: "departments",
+            data: "$data"
+        );
     }
 
     /**
@@ -36,7 +40,10 @@ class Departments
      */
     public function fetch(string $departmentId)
     {
-        return $this->ramp->sendRequest(method: "GET", endpoint: "departments/$departmentId");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "departments/$departmentId"
+        );
     }
 
     /**
@@ -45,6 +52,10 @@ class Departments
     public function update(string $id, string $name)
     {
         $data = json_encode(["id" => $id, "name" => $name]);
-        return $this->ramp->sendRequest(method: "PATCH", endpoint: "departments/$id", data: "$data");
+        return $this->ramp->sendRequest(
+            method: "PATCH",
+            endpoint: "departments/$id",
+            data: "$data"
+        );
     }
 }

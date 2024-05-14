@@ -36,8 +36,5 @@ class RampServiceProvider extends ServiceProvider {
         $this->mergeConfigFrom(
             __DIR__.'/config/ramp.php', 'ramp'
         );
-        $this->app->singleton(AccountingConnectionsService::class, function ($app) {
-            return new AccountingConnectionsService($app->make(Ramp::class));
-        });
     }
 }

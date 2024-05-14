@@ -32,8 +32,11 @@ class CashBacks
      */
     public function list(array $filters = []): array
     {
-        $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest(method: "GET", endpoint: "cashbacks?$queryParams");
+        $filters = http_build_query($filters);
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "cashbacks?$filters"
+        );
     }
 
     /**
@@ -44,6 +47,9 @@ class CashBacks
      */
     public function fetch(string $cashbackId): array
     {
-        return $this->ramp->sendRequest(method: "GET", endpoint: "cashbacks/$cashbackId");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "cashbacks/$cashbackId"
+        );
     }
 }

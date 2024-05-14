@@ -16,49 +16,71 @@ class Users
     /**
      * List users with optional filters.
      */
-    public function list($filters = [])
+    public function list(array $filters = []): array
     {
-        $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest('GET', "users?$queryParams");
+        $filters = http_build_query($filters);
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "users?$filters"
+        );
     }
 
     /**
      * Create a user invite.
      */
-    public function createInvite($userData)
+    public function createInvite(array $data): array
     {
-        return $this->ramp->sendRequest('POST', 'users/deferred', $userData);
+        $data = json_encode($data);
+        return $this->ramp->sendRequest(
+            method: "POST",
+            endpoint: "users/deferred",
+            data: "$data"
+        );
     }
 
     /**
      * Fetch deferred task status.
      */
-    public function fetchDeferredTaskStatus($taskId)
+    public function fetchDeferredTaskStatus(string $id): array
     {
-        return $this->ramp->sendRequest('GET', "users/deferred/status/$taskId");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "users/deferred/status/$id"
+        );
     }
 
     /**
      * Fetch a specific user by their ID.
      */
-    public function fetch($userId)
+    public function fetch(string $id): array
     {
-        return $this->ramp->sendRequest('GET', "users/$userId");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "users/$id"
+        );
     }
 
     /**
      * Update a specific user by their ID.
      */
-    public function update($userId, $userData)
+    public function update(string $id, array $data): array
     {
-        return $this->ramp->sendRequest('PATCH', "users/$userId", $userData);
+        $data = json_encode($data);
+        return $this->ramp->sendRequest(
+            method: "PATCH",
+            endpoint: "users/$id",
+            data: "$data"
+        );
     }
 
     /**
      * Delete a specific user by their ID.
      */
-    public function delete($userId)
+    public function delete(string $id): array
     {
-        return $this->ramp->sendRequest('DELETE', "users/$userId");
+        return $this->ramp->sendRequest(
+            method: "DELETE",
+            endpoint: "users/$id"
+        );
     }
 }

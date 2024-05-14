@@ -35,14 +35,17 @@ class Accounting
      */
     public function listOptions(string $fieldId, int|null $pageSize = null, string|null $start = null, bool|null $isActive = null): array
     {
-        $queryParams = http_build_query([
+        $filters = http_build_query([
             "field_id" => $fieldId,
             "page_size" => $pageSize,
             "start" => $start,
             "is_active" => $isActive,
         ]);
 
-        return $this->ramp->sendRequest(method: "GET", endpoint: "accounting/field-options?$queryParams");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "accounting/field-options?$filters"
+        );
     }
 
     /**
@@ -59,7 +62,11 @@ class Accounting
             "options" => $options,
         ];
 
-        return $this->ramp->sendRequest(method: "POST", endpoint: "accounting/field-options", data: $data);
+        return $this->ramp->sendRequest(
+            method: "POST",
+            endpoint: "accounting/field-options",
+            data: $data
+        );
     }
 
     /**
@@ -70,7 +77,10 @@ class Accounting
      */
     public function fetchOption(string $fieldId): array
     {
-        return $this->ramp->sendRequest(method: "GET", endpoint: "accounting/field-options/$fieldId");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "accounting/field-options/$fieldId"
+        );
     }
 
     /**
@@ -88,7 +98,11 @@ class Accounting
             "reactivate" => $reactivate,
         ]);
 
-        return $this->ramp->sendRequest(method: "PATCH", endpoint: "accounting/field-options/$fieldId", data: $data);
+        return $this->ramp->sendRequest(
+            method: "PATCH",
+            endpoint: "accounting/field-options/$fieldId",
+            data: $data
+        );
     }
 
     /**
@@ -99,7 +113,10 @@ class Accounting
      */
     public function deleteOption(string $fieldId): array
     {
-        return $this->ramp->sendRequest(method: "DELETE", endpoint: "accounting/field-options/$fieldId");
+        return $this->ramp->sendRequest(
+            method: "DELETE",
+            endpoint: "accounting/field-options/$fieldId"
+        );
     }
 
     // New accounting to be added before major release
