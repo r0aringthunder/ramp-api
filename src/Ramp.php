@@ -169,7 +169,7 @@ class Ramp
         $serviceMap = [];
 
         foreach (new FilesystemIterator($directory) as $fileInfo) {
-            if ($fileInfo->isFile() && $fileInfo->getExtension() === "php") {
+            if ($fileInfo->isFile() && $fileInfo->getExtension() === "php" && $fileInfo->getFilename() !== "Base") {
                 $className = str_replace(".php", "", $fileInfo->getFilename());
                 $fullyQualifiedClassName = __NAMESPACE__ . "\\Services\\" . $className;
                 $serviceName = lcfirst($className);

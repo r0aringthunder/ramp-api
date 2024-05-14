@@ -2,17 +2,10 @@
 
 namespace R0aringthunder\RampApi\Services;
 
-use R0aringthunder\RampApi\Ramp;
+use R0aringthunder\RampApi\Setup\Base;
 
-class Vendors
+class Vendors extends Base
 {
-    protected $ramp;
-
-    public function __construct(Ramp $ramp)
-    {
-        $this->ramp = $ramp;
-    }
-
     /**
      * List vendors with optional filters.
      */

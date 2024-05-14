@@ -2,17 +2,10 @@
 
 namespace R0aringthunder\RampApi\Services;
 
-use R0aringthunder\RampApi\Ramp;
+use R0aringthunder\RampApi\Setup\Base;
 
-class Receipts
+class Receipts extends Base
 {
-    protected $ramp;
-
-    public function __construct(Ramp $ramp)
-    {
-        $this->ramp = $ramp;
-    }
-
     /**
      * List receipts with optional filters.
      */

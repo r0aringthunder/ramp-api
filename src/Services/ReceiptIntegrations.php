@@ -2,17 +2,10 @@
 
 namespace R0aringthunder\RampApi\Services;
 
-use R0aringthunder\RampApi\Ramp;
+use R0aringthunder\RampApi\Setup\Base;
 
-class ReceiptIntegrations
+class ReceiptIntegrations extends Base
 {
-    protected $ramp;
-
-    public function __construct(Ramp $ramp)
-    {
-        $this->ramp = $ramp;
-    }
-
     /**
      * List emails opted out of receipt integrations.
      */
