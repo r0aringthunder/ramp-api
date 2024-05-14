@@ -16,17 +16,23 @@ class Statements
     /**
      * List statements with optional filters.
      */
-    public function list($filters = [])
+    public function list(array $filters = []): array
     {
-        $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest('GET', "statements?$queryParams");
+        $filters = http_build_query($filters);
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "statements?$filters"
+        );
     }
 
     /**
      * Fetch a specific statement by its ID.
      */
-    public function fetch($statementId)
+    public function fetch(string $id): array
     {
-        return $this->ramp->sendRequest('GET', "statements/$statementId");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "statements/$id"
+        );
     }
 }

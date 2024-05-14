@@ -18,8 +18,11 @@ class LedgerAccounts
      */
     public function list(array $filters = [])
     {
-        $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest(method: "GET", endpoint: "accounting/accounts?$queryParams");
+        $filters = http_build_query($filters);
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "accounting/accounts?$filters"
+        );
     }
 
     /**
@@ -28,7 +31,10 @@ class LedgerAccounts
     public function upload(array $data)
     {
         $data = json_encode(['gl_accounts' => $data]);
-        return $this->ramp->sendRequest(method: "POST", endpoint: "accounting/accounts", data: "$data");
+        return $this->ramp->sendRequest(
+            method: "POST",
+            endpoint: "accounting/accounts",
+            data: "$data");
     }
 
     /**
@@ -36,7 +42,10 @@ class LedgerAccounts
      */
     public function fetch($id)
     {
-        return $this->ramp->sendRequest(method: "GET", endpoint: "accounting/accounts/$id");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "accounting/accounts/$id"
+        );
     }
 
     /**
@@ -45,7 +54,11 @@ class LedgerAccounts
     public function update($id, $data)
     {
         $data = json_encode($data);
-        return $this->ramp->sendRequest(method: "PATCH", endpoint: "accounting/accounts/$id", data: "$data");
+        return $this->ramp->sendRequest(
+            method: "PATCH",
+            endpoint: "accounting/accounts/$id",
+            data: "$data"
+        );
     }
 
     /**
@@ -53,6 +66,9 @@ class LedgerAccounts
      */
     public function delete($id)
     {
-        return $this->ramp->sendRequest(method: "DELETE", endpoint: "accounting/accounts/$id");
+        return $this->ramp->sendRequest(
+            method: "DELETE",
+            endpoint: "accounting/accounts/$id"
+        );
     }
 }

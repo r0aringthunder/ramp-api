@@ -16,28 +16,38 @@ class ReceiptIntegrations
     /**
      * List emails opted out of receipt integrations.
      */
-    public function listOptOutEmails()
+    public function listOptOutEmails(): array
     {
-        return $this->ramp->sendRequest('GET', "receipt-integrations/opt-out");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "receipt-integrations/opt-out"
+        );
     }
 
     /**
      * Add a new email to the receipt integrations opt-out list.
      */
-    public function addOptOutEmail($businessId, $email)
+    public function addOptOutEmail(string $id, string $email): array
     {
-        $data = [
-            'business_id' => $businessId,
-            'email' => $email,
-        ];
-        return $this->ramp->sendRequest('POST', 'receipt-integrations/opt-out', $data);
+        $data = json_encode([
+            "business_id" => $id,
+            "email" => $email,
+        ]);
+        return $this->ramp->sendRequest(
+            method: "POST",
+            endpoint: "receipt-integrations/opt-out",
+            data: "$data"
+        );
     }
 
     /**
      * Remove an email from the receipt integration opt-out list.
      */
-    public function removeOptOutEmail($optOutEmailId)
+    public function removeOptOutEmail(string $id): array
     {
-        return $this->ramp->sendRequest('DELETE', "receipt-integrations/opt-out/$optOutEmailId");
+        return $this->ramp->sendRequest(
+            method: "DELETE",
+            endpoint: "receipt-integrations/opt-out/$id"
+        );
     }
 }

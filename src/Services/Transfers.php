@@ -16,17 +16,23 @@ class Transfers
     /**
      * List transfer payments with optional filters.
      */
-    public function list($filters = [])
+    public function list(array $filters = []): array
     {
-        $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest('GET', "transfers?$queryParams");
+        $filters = http_build_query($filters);
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "transfers?$filters"
+        );
     }
 
     /**
      * Fetch a specific transfer payment by its ID.
      */
-    public function fetch($transferId)
+    public function fetch(string $id): array
     {
-        return $this->ramp->sendRequest('GET', "transfers/$transferId");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "transfers/$id"
+        );
     }
 }

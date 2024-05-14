@@ -16,17 +16,23 @@ class Reimbursements
     /**
      * List reimbursements with optional filters.
      */
-    public function list($filters = [])
+    public function list(array $filters = []): array
     {
-        $queryParams = http_build_query($filters);
-        return $this->ramp->sendRequest('GET', "reimbursements?$queryParams");
+        $filters = http_build_query($filters);
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "reimbursements?$filters"
+        );
     }
 
     /**
      * Fetch a specific reimbursement by its ID.
      */
-    public function fetch($reimbursementId)
+    public function fetch(string $id): array
     {
-        return $this->ramp->sendRequest('GET', "reimbursements/$reimbursementId");
+        return $this->ramp->sendRequest(
+            method: "GET",
+            endpoint: "reimbursements/$id"
+        );
     }
 }

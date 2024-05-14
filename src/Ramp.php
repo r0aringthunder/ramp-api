@@ -32,9 +32,9 @@ class Ramp
      */
     protected function initialize()
     {
-        $this->clientId = config('ramp.client_id');
-        $this->clientSecret = config('ramp.client_secret');
-        $this->baseUrl = config('ramp.prod_ready') ? 'https://api.ramp.com/developer/v1/' : 'https://demo-api.ramp.com/developer/v1/';
+        $this->clientId = config("ramp.client_id");
+        $this->clientSecret = config("ramp.client_secret");
+        $this->baseUrl = config("ramp.prod_ready") ? "https://api.ramp.com/developer/v1/" : "https://demo-api.ramp.com/developer/v1/";
         $this->obtainAccessToken();
     }
 
@@ -47,19 +47,19 @@ class Ramp
      */
     public function obtainAccessToken()
     {
-        $this->clientId = config('ramp.client_id');
-        $this->clientSecret = config('ramp.client_secret');
-        $scopes = config('ramp.scopes');
+        $this->clientId = config("ramp.client_id");
+        $this->clientSecret = config("ramp.client_secret");
+        $scopes = config("ramp.scopes");
 
-        $response = $this->sendRequest('POST', 'token', [
-            'Content-Type: application/x-www-form-urlencoded',
+        $response = $this->sendRequest("POST", "token", [
+            "Content-Type: application/x-www-form-urlencoded",
         ], http_build_query([
-            'grant_type' => 'client_credentials',
-            'scope' => $scopes,
+            "grant_type" => "client_credentials",
+            "scope" => $scopes,
         ]));
 
-        if (isset($response['access_token'])) {
-            $this->accessToken = $response['access_token'];
+        if (isset($response["access_token"])) {
+            $this->accessToken = $response["access_token"];
         }
 
         return $response;
@@ -83,14 +83,14 @@ class Ramp
         $curl = curl_init();
         $url = $this->baseUrl . $endpoint;
 
-        if ($endpoint === 'token') {
-            $credentials = base64_encode($this->clientId . ':' . $this->clientSecret);
-            $headers[] = 'Authorization: Basic ' . $credentials;
+        if ($endpoint === "token") {
+            $credentials = base64_encode($this->clientId . ":" . $this->clientSecret);
+            $headers[] = "Authorization: Basic " . $credentials;
         } elseif ($this->accessToken) {
-            $headers[] = 'Authorization: Bearer ' . $this->accessToken;
+            $headers[] = "Authorization: Bearer " . $this->accessToken;
         }
 
-        if($method === 'POST' || $method === 'PATCH') {
+        if($method === "POST" || $method === "PATCH") {
             $headers[] = "Content-Type: application/json";
         }
 
@@ -102,7 +102,7 @@ class Ramp
         ];
     
         // Ensure data is JSON encoded if required
-        if ($data !== null && ($method === 'POST' || $method === 'PATCH')) {
+        if ($data !== null && ($method === "POST" || $method === "PATCH")) {
             $options[CURLOPT_POSTFIELDS] = $data;
         }
     
@@ -158,12 +158,12 @@ class Ramp
      */
     protected function discoverServices()
     {
-        $directory = __DIR__ . '/Services';
+        $directory = __DIR__ . "/Services";
         $serviceMap = [];
 
         foreach (new FilesystemIterator($directory) as $fileInfo) {
-            if ($fileInfo->isFile() && $fileInfo->getExtension() === 'php') {
-                $className = str_replace('.php', '', $fileInfo->getFilename());
+            if ($fileInfo->isFile() && $fileInfo->getExtension() === "php") {
+                $className = str_replace(".php", "", $fileInfo->getFilename());
                 $fullyQualifiedClassName = __NAMESPACE__ . "\\Services\\" . $className;
                 $serviceName = lcfirst($className);
                 $serviceMap[$serviceName] = $fullyQualifiedClassName;
