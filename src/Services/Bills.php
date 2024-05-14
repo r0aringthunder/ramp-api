@@ -2,28 +2,13 @@
 
 namespace R0aringthunder\RampApi\Services;
 
-use R0aringthunder\RampApi\Ramp;
+use R0aringthunder\RampApi\Setup\Base;
 
 /**
  * Provides methods to interact with bills-related endpoints of the Ramp API.
  */
-class Bills
+class Bills extends Base
 {
-    /**
-     * @var Ramp The Ramp service instance to handle API requests.
-     */
-    protected $ramp;
-
-    /**
-     * Initializes a new instance of the Bills service.
-     *
-     * @param Ramp $ramp The Ramp service instance.
-     */
-    public function __construct(Ramp $ramp)
-    {
-        $this->ramp = $ramp;
-    }
-
     /**
      * Lists bills with optional filtering based on query parameters.
      *

@@ -2,28 +2,13 @@
 
 namespace R0aringthunder\RampApi\Services;
 
-use R0aringthunder\RampApi\Ramp;
+use R0aringthunder\RampApi\Setup\Base;
 
 /**
  * Provides methods to interact with accounting-related endpoints of the Ramp API.
  */
-class Accounting
+class Accounting extends Base
 {
-    /**
-     * @var Ramp The Ramp service instance to handle API requests.
-     */
-    protected $ramp;
-
-    /**
-     * Initializes a new instance of the Accounting service.
-     *
-     * @param Ramp $ramp The Ramp service instance.
-     */
-    public function __construct(Ramp $ramp)
-    {
-        $this->ramp = $ramp;
-    }
-
     /**
      * Lists options for a given custom accounting field.
      *

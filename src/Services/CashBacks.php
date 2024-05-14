@@ -2,28 +2,13 @@
 
 namespace R0aringthunder\RampApi\Services;
 
-use R0aringthunder\RampApi\Ramp;
+use R0aringthunder\RampApi\Setup\Base;
 
 /**
  * Provides methods to interact with cash back-related endpoints of the Ramp API.
  */
-class CashBacks
+class CashBacks extends Base
 {
-    /**
-     * @var Ramp The Ramp service instance to handle API requests.
-     */
-    protected $ramp;
-
-    /**
-     * Initializes a new instance of the Cash Backs service.
-     *
-     * @param Ramp $ramp The Ramp service instance.
-     */
-    public function __construct(Ramp $ramp)
-    {
-        $this->ramp = $ramp;
-    }
-
     /**
      * Lists cashback payments with optional filtering.
      * @param array $filters An associative array of query parameters for filtering the list of cashback payments.
