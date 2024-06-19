@@ -127,6 +127,51 @@ class Ramp
     }
 
     /**
+     * Sends a multipart/form-data request to the Ramp API.
+     *
+     * @param string $method The HTTP method to use for the request.
+     * @param string $endpoint The API endpoint to request.
+     * @param array $headers Additional HTTP headers to include in the request.
+     * @param array $data The data to be sent with the request.
+     * @return mixed The JSON-decoded response from the API.
+     * @throws Exception If a cURL error occurs during the request.
+     */
+    public function sendMultipartRequest($method, $endpoint, $headers = [], $data = [])
+    {
+        $curl = curl_init();
+
+        $url = $this->baseUrl . $endpoint;
+        $options = [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => strtoupper($method),
+        ];
+
+        if ($this->accessToken) {
+            $headers[] = 'Authorization: Bearer ' . $this->accessToken;
+        }
+
+        if (!empty($headers)) {
+            $options[CURLOPT_HTTPHEADER] = $headers;
+        }
+
+        if (!empty($data)) {
+            $options[CURLOPT_POSTFIELDS] = $data;
+        }
+
+        curl_setopt_array($curl, $options);
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+
+        if ($err) {
+            throw new \Exception("cURL Error: " . $err);
+        }
+
+        return json_decode($response, true);
+    }
+
+    /**
      * Magic getter to lazy-load service instances.
      * 
      * If the requested service is not initialized, it will initialize it on the first access.

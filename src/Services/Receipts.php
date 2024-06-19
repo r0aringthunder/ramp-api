@@ -28,4 +28,23 @@ class Receipts extends Base
             endpoint: "receipts/$id"
         );
     }
+
+    /**
+     * Uploads a receipt.
+     *
+     * @param array $data The data for the receipt upload.
+     * @param string $filePath The path to the receipt file.
+     * @return array The response from the Ramp API.
+     */
+    public function upload(array $data, $filePath): array
+    {
+        $multipartData = [
+            'idempotency_key' => $data['idempotency_key'],
+            'transaction_id' => $data['transaction_id'],
+            'user_id' => $data['user_id'],
+            'file' => new \CURLFile($filePath)
+        ];
+
+        return $this->ramp->sendMultipartRequest('POST', 'receipts', [], $multipartData);
+    }
 }
