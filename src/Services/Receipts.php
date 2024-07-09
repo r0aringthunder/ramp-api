@@ -33,18 +33,20 @@ class Receipts extends Base
      * Uploads a receipt.
      *
      * @param array $data The data for the receipt upload.
-     * @param string $filePath The path to the receipt file.
+     * @param string $filePath The path to the receipt file or URL.
      * @return array The response from the Ramp API.
+     * @throws \Exception If the file does not exist, is not readable, or has an unsupported type.
      */
-    public function upload(array $data, $filePath): array
+    public function upload(array $data, string $filePath): array
     {
-        $multipartData = [
-            'idempotency_key' => $data['idempotency_key'],
-            'transaction_id' => $data['transaction_id'],
-            'user_id' => $data['user_id'],
-            'file' => new \CURLFile($filePath)
-        ];
+        list($tmpFilePath, $mimeType) = Helper::getFileDetails($filePath);
 
-        return $this->ramp->sendMultipartRequest('POST', 'receipts', [], $multipartData);
+        $multipartData = Helper::prepareMultipartData($data, $tmpFilePath, $mimeType);
+
+        $response = $this->ramp->sendMultipartRequest('POST', 'receipts', [], $multipartData);
+
+        unlink($tmpFilePath);
+
+        return $response;
     }
 }

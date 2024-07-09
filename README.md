@@ -81,6 +81,35 @@ public function fetchCard()
 }
 ```
 
+> [!IMPORTANT]  
+> At the time of implementation the API and Ramp dashbaord take approximately 5 minutes to sync but the API reacts immediately to chanes
+
+> [!IMPORTANT]  
+> The only file types accepted by Ramp are `png, webp, heif, pdf, heic, jpg, jpeg`
+#### Uploading a receipt to a transaction
+```php
+use R0aringthunder\RampApi\Ramp;
+
+public function uploadReceipt()
+{
+  $ramp = new Ramp();
+
+  $file = $request->file('receipts');
+  $path = $file->getRealPath();
+
+  return $ramp->receipts->upload(
+      [
+          'user_id' => $request->input('ramp_user_id'),
+          'transaction_id' => $request->input('ramp_transaction_id'),
+      ],
+      $path
+  );
+}
+```
+
+> [!TIP]
+> On `$path` you can use an uploaded file or a link to a file (Ex. an S3 link)
+
 ***More exmaples coming...***
 
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square

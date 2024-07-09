@@ -64,7 +64,7 @@ class Ramp
             "grant_type" => "client_credentials",
             "scope" => $scopes,
         ]));
-
+        
         if (isset($response["access_token"])) {
             $this->accessToken = $response["access_token"];
         }
@@ -145,19 +145,21 @@ class Ramp
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => strtoupper($method),
+            CURLOPT_POST => true,
         ];
 
         if ($this->accessToken) {
             $headers[] = 'Authorization: Bearer ' . $this->accessToken;
         }
 
-        if (!empty($headers)) {
-            $options[CURLOPT_HTTPHEADER] = $headers;
-        }
+        $delimiter = '-------------' . self::generateIdempotencyKey();
 
-        if (!empty($data)) {
-            $options[CURLOPT_POSTFIELDS] = $data;
-        }
+        $headers[] = 'Content-Type: multipart/form-data; boundary=' . $delimiter;
+
+        $body = $this->buildMultipartBody($data, $delimiter);
+
+        $options[CURLOPT_HTTPHEADER] = $headers;
+        $options[CURLOPT_POSTFIELDS] = $body;
 
         curl_setopt_array($curl, $options);
         $response = curl_exec($curl);
@@ -165,10 +167,38 @@ class Ramp
         curl_close($curl);
 
         if ($err) {
-            throw new \Exception("cURL Error: " . $err);
+            throw new Exception("cURL Error: " . $err);
         }
 
         return json_decode($response, true);
+    }
+
+    private function buildMultipartBody($fields, $delimiter)
+    {
+        $data = '';
+    
+        foreach ($fields as $field) {
+            $data .= "--" . $delimiter . "\r\n";
+            $data .= 'Content-Disposition: form-data; name="' . $field['name'] . '"';
+            if (isset($field['filename'])) {
+                $data .= '; filename="' . $field['filename'] . '"';
+            }
+            $data .= "\r\n";
+            if (isset($field['headers'])) {
+                foreach ($field['headers'] as $headerName => $headerValue) {
+                    $data .= $headerName . ": " . $headerValue . "\r\n";
+                }
+            }
+            $data .= "\r\n";
+            if (isset($field['contents']) && is_resource($field['contents'])) {
+                $data .= stream_get_contents($field['contents']) . "\r\n";
+            } else {
+                $data .= $field['contents'] . "\r\n";
+            }
+        }
+        $data .= "--" . $delimiter . "--\r\n";
+    
+        return $data;
     }
 
     /**
@@ -214,7 +244,7 @@ class Ramp
         $serviceMap = [];
 
         foreach (new FilesystemIterator($directory) as $fileInfo) {
-            if ($fileInfo->isFile() && $fileInfo->getExtension() === "php" && $fileInfo->getFilename() !== "Base") {
+            if ($fileInfo->isFile() && $fileInfo->getExtension() === "php" && $fileInfo->getFilename() !== "Base.php" && $fileInfo->getFilename() !== "Helper.php") {
                 $className = str_replace(".php", "", $fileInfo->getFilename());
                 $fullyQualifiedClassName = __NAMESPACE__ . "\\Services\\" . $className;
                 $serviceName = lcfirst($className);
@@ -222,5 +252,15 @@ class Ramp
             }
         }
         return $serviceMap;
+    }
+
+    /**
+     * Generates an idempotency_key for use in API requests.
+     * 
+     * @return string The generated idempotency key.
+     */
+    public function generateIdempotencyKey()
+    {
+        return config("ramp.idempotency_key_prefix", date('Y_m_d_H_i_s_a_')) . uniqid();
     }
 }
