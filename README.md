@@ -89,8 +89,9 @@ public function fetchCard()
 #### Uploading a receipt to a transaction
 ```php
 use R0aringthunder\RampApi\Ramp;
+use Illuminate\Http\Request;
 
-public function uploadReceipt()
+public function uploadReceipt(Request $request)
 {
   $ramp = new Ramp();
 
