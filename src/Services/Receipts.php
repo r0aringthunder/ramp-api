@@ -3,7 +3,6 @@
 namespace R0aringthunder\RampApi\Services;
 
 use R0aringthunder\RampApi\Setup\Base;
-use R0aringthunder\RampApi\Services\Helper;
 
 class Receipts extends Base
 {
