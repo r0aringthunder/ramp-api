@@ -39,9 +39,9 @@ class Receipts extends Base
      */
     public function upload(array $data, string $filePath): array
     {
-        list($tmpFilePath, $mimeType) = Helper::getFileDetails($filePath);
+        list($tmpFilePath, $mimeType) = $this->getFileDetails($filePath);
 
-        $multipartData = Helper::prepareMultipartData($data, $tmpFilePath, $mimeType);
+        $multipartData = $this->prepareMultipartData($data, $tmpFilePath, $mimeType);
 
         $response = $this->ramp->sendMultipartRequest('POST', 'receipts', [], $multipartData);
 
