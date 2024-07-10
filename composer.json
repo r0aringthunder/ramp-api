@@ -22,5 +22,8 @@
                 "R0aringthunder\\RampApi\\RampServiceProvider"
             ]
         }
-    }    
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10",
+    },  
 }
