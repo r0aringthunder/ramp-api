@@ -6,7 +6,7 @@
  - [Accounting Connections](https://docs.ramp.com/developer-api/v1/reference/rest/accounting-connections) `Ex: $ramp->accountingconnections->...`
  - [Bills](https://docs.ramp.com/developer-api/v1/reference/rest/bills) `Ex: $ramp->bills->...`
  - [Business](https://docs.ramp.com/developer-api/v1/reference/rest/business) `Ex: $ramp->business->...`
- - **Card Programs - This is not implemented and instead you should use [Spend Programs](https://docs.ramp.com/developer-api/v1/reference/rest/spend-programs)**
+ - **[Card Programs](https://docs.ramp.com/developer-api/v1/reference/rest/card-programs) - This is not implemented and instead you should use [Spend Programs](https://docs.ramp.com/developer-api/v1/reference/rest/spend-programs)**
  - [Cards](https://docs.ramp.com/developer-api/v1/reference/rest/cards) `Ex: $ramp->cards->...`
  - [Cash Backs](https://docs.ramp.com/developer-api/v1/reference/rest/cashbacks) `Ex: $ramp->cashbacks->...`
  - [Departments](https://docs.ramp.com/developer-api/v1/reference/rest/departments) `Ex: $ramp->departments->...`
