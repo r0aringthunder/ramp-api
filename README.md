@@ -82,7 +82,7 @@ public function fetchCard()
 ```
 
 > [!IMPORTANT]  
-> At the time of implementation the API and Ramp dashbaord take approximately 5 minutes to sync but the API reacts immediately to chanes
+> At the time of implementation the API and Ramp dashbaord take approximately 5 minutes to sync but the API reacts immediately to changes
 
 > [!IMPORTANT]  
 > The only file types accepted by Ramp are `png, webp, heif, pdf, heic, jpg, jpeg`
