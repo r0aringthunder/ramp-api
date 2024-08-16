@@ -23,11 +23,12 @@ class Users extends Base
      */
     public function createInvite(array $data): array
     {
+        $data['idempotency_key'] = $this->ramp->generateIdempotencyKey();
         $data = json_encode($data);
         return $this->ramp->sendRequest(
             method: "POST",
             endpoint: "users/deferred",
-            data: "$data"
+            data: $data
         );
     }
 
