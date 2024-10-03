@@ -32,11 +32,12 @@ class Cards extends Base
      */
     public function createPhysical(array $data): array
     {
+        $data['idempotency_key'] = $this->ramp->generateIdempotencyKey();
         $data = json_encode($data);
         return $this->ramp->sendRequest(
             method: "POST",
             endpoint: "cards/deferred/physical",
-            data: "$data"
+            data: $data
         );
     }
 
@@ -48,11 +49,12 @@ class Cards extends Base
      */
     public function createVirtual(array $data): array
     {
+        $data['idempotency_key'] = $this->ramp->generateIdempotencyKey();
         $data = json_encode($data);
         return $this->ramp->sendRequest(
             method: "POST",
             endpoint: "cards/deferred/virtual",
-            data: "$data"
+            data: $data
         );
     }
 
@@ -79,11 +81,12 @@ class Cards extends Base
      */
     public function update(string $cardId, array $data): array
     {
+        $data['idempotency_key'] = $this->ramp->generateIdempotencyKey();
         $data = json_encode($data);
         return $this->ramp->sendRequest(
             method: "PATCH",
             endpoint: "cards/{$cardId}",
-            data: "$data"
+            data: $data
         );
     }
 
@@ -96,11 +99,12 @@ class Cards extends Base
      */
     public function suspend(string $cardId, string $idempotencyKey): array
     {
+        $data['idempotency_key'] = $this->ramp->generateIdempotencyKey();
         $data = json_encode(["idempotency_key" => $idempotencyKey]);
         return $this->ramp->sendRequest(
             method: "POST",
             endpoint: "cards/{$cardId}/deferred/suspension",
-            data: "$data"
+            data: $data
         );
     }
 
@@ -113,11 +117,12 @@ class Cards extends Base
      */
     public function terminate(string $cardId, string $idempotencyKey): array
     {
+        $data['idempotency_key'] = $this->ramp->generateIdempotencyKey();
         $data = json_encode(["idempotency_key" => $idempotencyKey]);
         return $this->ramp->sendRequest(
             method: "POST",
             endpoint: "cards/{$cardId}/deferred/termination",
-            data: "$data"
+            data: $data
         );
     }
 
@@ -130,11 +135,12 @@ class Cards extends Base
      */
     public function unlock(string $cardId, string $idempotencyKey): array
     {
+        $data['idempotency_key'] = $this->ramp->generateIdempotencyKey();
         $data = json_encode(["idempotency_key" => $idempotencyKey]);
         return $this->ramp->sendRequest(
             method: "POST",
             endpoint: "cards/{$cardId}/deferred/unsuspension",
-            data: "$data"
+            data: $data
         );
     }
 }
